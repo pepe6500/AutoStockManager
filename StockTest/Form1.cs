@@ -1027,10 +1027,6 @@ namespace StockTest
                                 PlayEffect(25);
                                 Send_Log("m_thread1():axKHOpenAPI1.SetInputValue [" + e.Message + "]");
                             }
-                            catch
-                            {
-
-                            }
                             for (; ; )
                             {
                                 if (g_flag_2 == 1)
@@ -1784,7 +1780,7 @@ namespace StockTest
                         own_amt = (int)int.Parse(axKHOpenAPI1.CommGetData(e.sTrCode, "", e.sRQName, ii, "매입금액").Trim());
                         lastpri = (int)int.Parse(axKHOpenAPI1.GetMasterLastPrice(jongmok_cd));
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         Send_Log("API 잘못된 값 넘어옴 : " + axKHOpenAPI1.CommGetData(e.sTrCode, "", e.sRQName, ii, "종목코드").Trim());
                         //Send_Log("<종목코드 : " + axKHOpenAPI1.CommGetData(e.sTrCode, "", e.sRQName, ii, "종목코드").Trim() + ">");
@@ -2489,7 +2485,7 @@ namespace StockTest
                 pricedata = int.Parse(textBox2.Text);
                 int index = insert_tb_accnt_info("000000", "테스트", g_accnt_no, 10000, 100, pricedata);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 Send_Log("정수값 입력 오류");
             }

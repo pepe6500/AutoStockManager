@@ -440,7 +440,7 @@ namespace StockTest
 
         public void LoadSoundSetting(string name)
         {
-            for(int i = 0; i < soundSettings.Count; i++)
+            for (int i = 0; i < soundSettings.Count; i++)
             {
                 if (soundSettings[i].name == name)
                     return;
@@ -497,7 +497,7 @@ namespace StockTest
             axKHOpenAPI1.OnReceiveRealData += this.axKHOpenAPI1_OnReceiveRealData;
             axKHOpenAPI1.OnReceiveConditionVer += OnReceiveConditionVer;
 
-            button14_Click(null,null);
+            button14_Click(null, null);
             textBox2.KeyDown += TextBoxKeyDown;
 
             g_is_thread = 1; // 스레드 생성으로 값 설정
@@ -715,7 +715,7 @@ namespace StockTest
                 LoadSoundSetting("손실10퍼");
                 LoadSoundSetting("오류");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Send_Log_Debug("알림 설정 불러오기 실패 : " + e.Message + e.StackTrace);
             }
@@ -823,6 +823,7 @@ namespace StockTest
                 {
                     this.BeginInvoke(new Action(() =>
                     {
+                        Send_Log(logbox.Text.Length.ToString());
                         this.Text = "주식 프로그램 / " + CommUtil.BuildDate.Year + "." + CommUtil.BuildDate.Month + "." + CommUtil.BuildDate.Day + " /      " + DateTime.Now + ":" + DateTime.Now.Millisecond / 100;
                     }
                     ));
@@ -1018,6 +1019,7 @@ namespace StockTest
                                     Send_Log_Debug("계좌정보 수신 요청 중: " + current_accnt_no);
                                     string sRQName = "계좌평가현황요청," + current_accnt_no.ToString();
                                     axKHOpenAPI1.CommRqData(sRQName, "OPW00004", g_is_next, get_scr_no());
+
                                     await Task.Delay(500);
                                 }
                                 l_for_cnt = 0;
@@ -1060,6 +1062,8 @@ namespace StockTest
                                 await Task.Delay(2000);
                                 continue;
                             }
+
+                            CutLogBoxByLength();
                         }
                         if (g_is_next == 0)
                         {
@@ -1081,7 +1085,7 @@ namespace StockTest
                 try
                 {
                     PlayEffect(25);
-                    Send_Log("m_thread1() " + e.HResult +" [" + e.Message + "]");
+                    Send_Log("m_thread1() " + e.HResult + " [" + e.Message + "]");
                 }
                 catch
                 {
@@ -1107,7 +1111,7 @@ namespace StockTest
         {
             try
             {
-                if(i_own_stock_cnt < 0 || now_price <= 0 || i_buy_price < 0)
+                if (i_own_stock_cnt < 0 || now_price <= 0 || i_buy_price < 0)
                 {
                     return -1;
                 }
@@ -1216,7 +1220,7 @@ namespace StockTest
                     ((Button)newpan.Controls["button6"]).Click += newStockChecker.EVT_Remove;
                     ((CheckBox)newpan.Controls["highmesu"]).Click += newStockChecker.EVT_ChangeHighMesu;
                     ((CheckBox)newpan.Controls["pricechangesound"]).Click += newStockChecker.EVT_ChangePriceChangeSound;
-                    
+
 
                     flowLayoutPanel1.Controls.Add(newpan);
                     newpan.Name = "panel" + (newStockChecker.index + 1);
@@ -1391,7 +1395,7 @@ namespace StockTest
                     else
                         ((Label)newStockChecker.pan.Controls["targetprice_text"]).Text = "목표가: 0원";
 
-                    
+
                     newStockChecker.is_playing = play;
                     newStockChecker.is_cut = is_cut;
                     newStockChecker.cut_price = cut_price;
@@ -1481,7 +1485,7 @@ namespace StockTest
                 }
             }
         }
-        
+
         public void Send_Log_Debug(string msg)
         {
             if (checkBox3.Checked == true)
@@ -1532,29 +1536,11 @@ namespace StockTest
                     if (saveLog)
                         System.IO.File.AppendAllText(logpath, Environment.NewLine + res, Encoding.Default);
 
-                    if (this.logbox.InvokeRequired)
+                    logbox.BeginInvoke(new Action(() =>
                     {
-                        logbox.BeginInvoke(new Action(() =>
-                        {
-
-                            int nowlenght = logbox.SelectionStart;
-                            nowlenght -= logbox.SelectionLength;
-                            logbox.AppendText(res + Environment.NewLine);
-                        }
-                        ));
-                    }
-                    else
-                    {
-                        int nowlenght = logbox.SelectionStart;
-                        nowlenght -= logbox.SelectionLength;
                         logbox.AppendText(res + Environment.NewLine);
                     }
-                }
-                if (logbox.Lines.Count() > 400)
-                {
-                    var lines = logbox.Lines;
-                    var newlines = lines.Skip(logbox.Lines.Count() - 400);
-                    logbox.Lines = newlines.ToArray();
+                    ));
                 }
             }
             catch (Exception e)
@@ -1580,35 +1566,32 @@ namespace StockTest
                     if (saveLog)
                         System.IO.File.AppendAllText(logpath, Environment.NewLine + l_cur_dtm + msg, Encoding.Default);
 
-                    if (this.logbox.InvokeRequired)
+                    logbox.BeginInvoke(new Action(() =>
                     {
-                        logbox.BeginInvoke(new Action(() =>
-                        {
-
-                            int nowlenght = logbox.SelectionStart;
-                            nowlenght -= logbox.SelectionLength;
-                            logbox.AppendText(l_cur_dtm + msg + Environment.NewLine);
-                        }
-                        ));
-                    }
-                    else
-                    {
-                        int nowlenght = logbox.SelectionStart;
-                        nowlenght -= logbox.SelectionLength;
                         logbox.AppendText(l_cur_dtm + msg + Environment.NewLine);
                     }
-                }
-                if (logbox.Lines.Count() > 400)
-                {
-                    var lines = logbox.Lines;
-                    var newlines = lines.Skip(logbox.Lines.Count() - 400);
-                    logbox.Lines = newlines.ToArray();
+                    ));
                 }
             }
             catch (Exception e)
             {
                 PlayEffect(25);
                 // Send_Log("Send_Log() [" + e.Message + "]");
+            }
+        }
+
+        /// <summary>
+        /// Logbox의 텍스트가 너무 길어져 메모리를 낭비하는 것을 방지하는 함수
+        /// </summary>
+        public void CutLogBoxByLength()
+        {
+            if (logbox.Text.Length > 5000)
+            {
+                logbox.BeginInvoke(new Action(() =>
+                {
+                    logbox.Text = logbox.Text.Substring(logbox.Text.Length - 2000);
+                }
+                ));
             }
         }
 

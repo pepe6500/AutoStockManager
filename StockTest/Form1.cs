@@ -43,8 +43,6 @@ namespace StockTest
         Task thread1 = null; // 생성된 스레드 객체를 담을 변수
         Task threadtest = null; // 생성된 스레드 객체를 담을 변수
         Task timer = null; // 생성된 스레드 객체를 담을 변수
-        bool flag = false;
-        Object getinfo = null;
         public string g_user_id = null;
         string g_accnt_no = null; // 증권계좌번호
         string l_accno_cnt = "0"; // 소유한 증권계좌번호의 수
@@ -62,11 +60,9 @@ namespace StockTest
         int g_flag_7 = 0;
         int g_scr_no = 1000; // Open API 요청번호
         int g_ord_amt_possible = 0;
-        int nowStockNum = 0;
 
         bool autoScrollLog = true;
 
-        bool first = true;
         bool firstget = true;
 
         bool nowAuto = false;
@@ -178,14 +174,11 @@ namespace StockTest
         WMPLib.WindowsMediaPlayer player;
 
         public List<StockChecker> stockCheckers = new List<StockChecker>();
-        public ConditionProcess conditionProcess;
         public List<string> fixedList = new List<string>();
 
         public XmlData xmlData = new XmlData();
 
         public List<SoundSetting> soundSettings = new List<SoundSetting>();
-
-        public Form12 conditionWindow = null;
 
         [DllImport("kernel32.dll")]
         public static extern bool Beep(int n, int m);    // n은 주파수, m은 소리내는 시간(단위: 1/1000초)
@@ -347,68 +340,6 @@ namespace StockTest
                     xmlData.SetData("Sound" + soundSettings[i].name + ".highLight", soundSettings[i].highLight.ToString());
                 }
 
-                for (int i = 0; i < conditionProcess.onPlayConditions.Length; i++)
-                {
-                    if (conditionProcess.onPlayConditions[i] == null)
-                    {
-                        xmlData.SetData("ConditiononPlayConditions" + i, "none");
-                        continue;
-                    }
-                    xmlData.SetData("ConditiononPlayConditions" + i, conditionProcess.onPlayConditions[i].name);
-                    xmlData.SetData("Condition" + conditionProcess.onPlayConditions[i].name + ".isPlay", conditionProcess.onPlayConditions[i].isPlay.ToString());
-                    xmlData.SetData("Condition" + conditionProcess.onPlayConditions[i].name + ".startTime.hour", conditionProcess.onPlayConditions[i].startTime.hour.ToString());
-                    xmlData.SetData("Condition" + conditionProcess.onPlayConditions[i].name + ".startTime.min", conditionProcess.onPlayConditions[i].startTime.min.ToString());
-                    xmlData.SetData("Condition" + conditionProcess.onPlayConditions[i].name + ".startTime.sec", conditionProcess.onPlayConditions[i].startTime.sec.ToString());
-                    xmlData.SetData("Condition" + conditionProcess.onPlayConditions[i].name + ".endTime.hour", conditionProcess.onPlayConditions[i].endTime.hour.ToString());
-                    xmlData.SetData("Condition" + conditionProcess.onPlayConditions[i].name + ".endTime.min", conditionProcess.onPlayConditions[i].endTime.min.ToString());
-                    xmlData.SetData("Condition" + conditionProcess.onPlayConditions[i].name + ".endTime.sec", conditionProcess.onPlayConditions[i].endTime.sec.ToString());
-                    xmlData.SetData("Condition" + conditionProcess.onPlayConditions[i].name + ".maxBuyCount", conditionProcess.onPlayConditions[i].maxBuyCount.ToString());
-                    xmlData.SetData("Condition" + conditionProcess.onPlayConditions[i].name + ".buyMoney", conditionProcess.onPlayConditions[i].buyMoney.ToString());
-                    xmlData.SetData("Condition" + conditionProcess.onPlayConditions[i].name + ".buyType", conditionProcess.onPlayConditions[i].buyType.ToString());
-                    xmlData.SetData("Condition" + conditionProcess.onPlayConditions[i].name + ".minValue", conditionProcess.onPlayConditions[i].minValue.ToString());
-                    xmlData.SetData("Condition" + conditionProcess.onPlayConditions[i].name + ".addConditionIndex", conditionProcess.onPlayConditions[i].addConditionIndex.ToString());
-                    xmlData.SetData("Condition" + conditionProcess.onPlayConditions[i].name + ".linked", conditionProcess.onPlayConditions[i].linked);
-                }
-
-
-                xmlData.SetData("Condition_is_playing", conditionProcess.is_playing.ToString());
-                xmlData.SetData("Condition_is_cut", conditionProcess.is_cut.ToString());
-                xmlData.SetData("Condition_cut_price", conditionProcess.cut_price.ToString());
-                xmlData.SetData("Condition_cut_count", conditionProcess.cut_count.ToString());
-                xmlData.SetData("Condition_is_sell", conditionProcess.is_sell.ToString());
-                xmlData.SetData("Condition_is_buy", conditionProcess.is_buy.ToString());
-                xmlData.SetData("Condition_is_highmedo", conditionProcess.is_highmedo.ToString());
-                xmlData.SetData("Condition_is_highmedo_per", conditionProcess.is_highmedo_per.ToString());
-                xmlData.SetData("Condition_highMedo_price", conditionProcess.highMedo_price.ToString());
-                xmlData.SetData("Condition_highMedo_perval", conditionProcess.highMedo_perval.ToString());
-                xmlData.SetData("Condition_end_clear", conditionProcess.end_clear.ToString());
-                xmlData.SetData("Condition_is_endLimit", conditionProcess.is_endLimit.ToString());
-                xmlData.SetData("Condition_haveEffect", conditionProcess.haveEffect.ToString());
-                xmlData.SetData("Condition_is_rebuy", conditionProcess.is_rebuy.ToString());
-                xmlData.SetData("Condition_is_selltime", conditionProcess.is_selltime.ToString());
-                xmlData.SetData("Condition_is_buytime", conditionProcess.is_buytime.ToString());
-                xmlData.SetData("Condition_sell_start", conditionProcess.sell_start.ToString());
-                xmlData.SetData("Condition_sell_end", conditionProcess.sell_end.ToString());
-                xmlData.SetData("Condition_sell_per", conditionProcess.sell_per.ToString());
-                xmlData.SetData("Condition_buy_start", conditionProcess.buy_start.ToString());
-                xmlData.SetData("Condition_buy_end", conditionProcess.buy_end.ToString());
-                xmlData.SetData("Condition_buy_per", conditionProcess.buy_per.ToString());
-                xmlData.SetData("Condition_highbuy_start", conditionProcess.highbuy_start.ToString());
-                xmlData.SetData("Condition_highbuy_end", conditionProcess.highbuy_end.ToString());
-                xmlData.SetData("Condition_highbuy_per", conditionProcess.highbuy_per.ToString());
-                xmlData.SetData("Condition_is_price_change_sound", conditionProcess.is_price_change_sound.ToString());
-                xmlData.SetData("Condition_targetPrice", conditionProcess.targetPrice.ToString());
-                xmlData.SetData("Condition_remainCountVal", conditionProcess.remainCountVal.ToString());
-                xmlData.SetData("Condition_is_highbuy", conditionProcess.is_highbuy.ToString());
-
-                for (int i = 0; i < conditionProcess.sell_conditions.Length; i++)
-                {
-                    xmlData.SetData("Condition_sell_conditions" + i, conditionProcess.sell_conditions[i].ToString());
-                    xmlData.SetData("Condition_buy_conditions" + i, conditionProcess.buy_conditions[i].ToString());
-                    xmlData.SetData("Condition_sell_kinds" + i, conditionProcess.sell_kinds[i].ToString());
-                    xmlData.SetData("Condition_buy_kinds" + i, conditionProcess.buy_kinds[i].ToString());
-                }
-
 
                 if (xmlData != null)
                     xmlData.bSaveXML();
@@ -481,7 +412,6 @@ namespace StockTest
             //((Label)(panel1.Controls[0])).Text = "aaaa";
             //프로그램 시작시 로그인 창 호출
             axKHOpenAPI1.CommConnect();
-            conditionProcess = new ConditionProcess(this);
             if (Directory.Exists(Path.GetDirectoryName(Application.ExecutablePath) + "\\LOGS") == false)
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(Application.ExecutablePath) + "\\LOGS");
@@ -519,8 +449,6 @@ namespace StockTest
             {
                 sell_conditions[i] = 3;
                 buy_conditions[i] = 3;
-                conditionProcess.sell_conditions[i] = 3;
-                conditionProcess.buy_conditions[i] = 3;
             }
             dataGridView1.Rows.Add(20);
         }
@@ -635,54 +563,6 @@ namespace StockTest
             }
             if (xmlData.Find("AutoStart") != null)
                 nowAuto = bool.Parse(xmlData.Find("AutoStart").value);
-            if (xmlData.Find("Condition_sell_start") != null)
-            {
-                try
-                {
-                    conditionProcess.is_playing = bool.Parse(xmlData.Find("Condition_is_playing").value);
-                    conditionProcess.is_cut = bool.Parse(xmlData.Find("Condition_is_cut").value);
-                    conditionProcess.cut_price = float.Parse(xmlData.Find("Condition_cut_price").value);
-                    conditionProcess.cut_count = int.Parse(xmlData.Find("Condition_cut_count").value);
-                    conditionProcess.is_sell = bool.Parse(xmlData.Find("Condition_is_sell").value);
-                    conditionProcess.is_buy = bool.Parse(xmlData.Find("Condition_is_buy").value);
-                    conditionProcess.is_highmedo = bool.Parse(xmlData.Find("Condition_is_highmedo").value);
-                    conditionProcess.is_highmedo_per = bool.Parse(xmlData.Find("Condition_is_highmedo_per").value);
-                    conditionProcess.highMedo_price = int.Parse(xmlData.Find("Condition_highMedo_price").value);
-                    conditionProcess.highMedo_perval = float.Parse(xmlData.Find("Condition_highMedo_perval").value);
-                    conditionProcess.end_clear = bool.Parse(xmlData.Find("Condition_end_clear").value);
-                    conditionProcess.is_endLimit = bool.Parse(xmlData.Find("Condition_is_endLimit").value);
-                    conditionProcess.haveEffect = bool.Parse(xmlData.Find("Condition_haveEffect").value);
-                    conditionProcess.is_rebuy = bool.Parse(xmlData.Find("Condition_is_rebuy").value);
-                    conditionProcess.is_selltime = bool.Parse(xmlData.Find("Condition_is_selltime").value);
-                    conditionProcess.is_buytime = bool.Parse(xmlData.Find("Condition_is_buytime").value);
-
-                    conditionProcess.sell_start = float.Parse(xmlData.Find("Condition_sell_start").value);
-                    conditionProcess.sell_end = float.Parse(xmlData.Find("Condition_sell_end").value);
-                    conditionProcess.sell_per = float.Parse(xmlData.Find("Condition_sell_per").value);
-                    conditionProcess.buy_start = float.Parse(xmlData.Find("Condition_buy_start").value);
-                    conditionProcess.buy_end = float.Parse(xmlData.Find("Condition_buy_end").value);
-                    conditionProcess.buy_per = float.Parse(xmlData.Find("Condition_buy_per").value);
-                    conditionProcess.highbuy_start = float.Parse(xmlData.Find("Condition_highbuy_start").value);
-                    conditionProcess.highbuy_end = float.Parse(xmlData.Find("Condition_highbuy_end").value);
-                    conditionProcess.highbuy_per = float.Parse(xmlData.Find("Condition_highbuy_per").value);
-                    conditionProcess.is_price_change_sound = bool.Parse(xmlData.Find("Condition_is_price_change_sound").value);
-                    conditionProcess.targetPrice = int.Parse(xmlData.Find("Condition_targetPrice").value);
-                    conditionProcess.remainCountVal = int.Parse(xmlData.Find("Condition_remainCountVal").value);
-                    conditionProcess.is_highbuy = bool.Parse(xmlData.Find("Condition_is_highbuy").value);
-
-                    for (int i = 0; i < conditionProcess.sell_conditions.Length; i++)
-                    {
-                        conditionProcess.sell_conditions[i] = int.Parse(xmlData.Find("Condition_sell_conditions" + i).value.Trim());
-                        conditionProcess.buy_conditions[i] = int.Parse(xmlData.Find("Condition_buy_conditions" + i).value.Trim());
-                        conditionProcess.sell_kinds[i] = int.Parse(xmlData.Find("Condition_sell_kinds" + i).value.Trim());
-                        conditionProcess.buy_kinds[i] = int.Parse(xmlData.Find("Condition_buy_kinds" + i).value.Trim());
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Send_Log_Debug("설정 저장 오류 : " + ex.Message + ex.StackTrace);
-                }
-            }
 
             try
             {
@@ -1543,7 +1423,7 @@ namespace StockTest
                     ));
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 PlayEffect(25);
                 // Send_Log("Send_Log() [" + e.Message + "]");
@@ -1573,7 +1453,7 @@ namespace StockTest
                     ));
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 PlayEffect(25);
                 // Send_Log("Send_Log() [" + e.Message + "]");
@@ -1667,14 +1547,6 @@ namespace StockTest
                 {
                     Thread.Sleep(250);
                     System.Windows.Forms.Application.DoEvents();
-                    conditionProcess.AddCondition(conditionInfo[1].Trim(), int.Parse(conditionInfo[0].Trim()));
-                }
-            }
-            for (int i = 0; i < conditionProcess.conditions.Count; i++)
-            {
-                if (conditionProcess.conditions.Find(a => a.name == conditionProcess.conditions[i].linked) == null)
-                {
-                    conditionProcess.conditions[i].linked = null;
                 }
             }
         }
@@ -2488,19 +2360,6 @@ namespace StockTest
                 logbox.Enabled = true;
                 logbox.Visible = true;
                 button14.Text = "숨기기";
-            }
-        }
-
-        private void button15_Click(object sender, EventArgs e)
-        {
-            if (conditionWindow == null)
-            {
-                Form12 form12 = new Form12(this);
-                form12.Show();
-            }
-            else
-            {
-                conditionWindow.Select();
             }
         }
 

@@ -97,7 +97,6 @@ namespace StockTest
                     newcon.buyType = int.Parse(main.xmlData.Find("Condition" + name + ".buyType").value);
                     newcon.minValue = int.Parse(main.xmlData.Find("Condition" + name + ".minValue").value);
                     newcon.addConditionIndex = int.Parse(main.xmlData.Find("Condition" + name + ".addConditionIndex").value);
-                    newcon.linked = main.xmlData.Find("Condition" + name + ".linked").value;
                 }
                 catch
                 {
@@ -197,14 +196,6 @@ namespace StockTest
             }
             findCondition.AddStock(codes);
             findCondition.SendStock();
-            if (main.conditionWindow != null)
-                for (int i = 0; i < onPlayConditions.Length; i++)
-                {
-                    if (onPlayConditions[i] == null)
-                        continue;
-                    if (onPlayConditions[i].name == findCondition.name)
-                        main.conditionWindow.ReloadPanel(i);
-                }
         }
 
         private void OnReceiveRealData(object sender, AxKHOpenAPILib._DKHOpenAPIEvents_OnReceiveRealDataEvent e)
@@ -216,30 +207,6 @@ namespace StockTest
                 {
                     if (onPlayConditions[i] == null)
                         continue;
-                    int index = onPlayConditions[i].stocks.FindIndex(a => a.code == realcode);
-                    if(index != -1)
-                    {
-                        int price = Math.Abs(int.Parse(main.GetAPI().GetCommRealData(e.sRealType, 10).Trim()));
-                        if (price == onPlayConditions[i].stocks[index].price && float.Parse(main.GetAPI().GetCommRealData(e.sRealType, 30).Trim()) == onPlayConditions[i].stocks[index].netChangeTrading)
-                        {
-                            if (main.conditionWindow != null)
-                            {
-                                index = onPlayConditions[i].stocks.FindIndex(a => a.code == realcode);
-                                main.conditionWindow.ReloadPanel(i, index);
-                            }
-                            return;
-                        }
-                        if(onPlayConditions[i].AddData(index, price, float.Parse(main.GetAPI().GetCommRealData(e.sRealType, 12).Trim()), int.Parse(main.GetAPI().GetCommRealData(e.sRealType, 11).Trim()), float.Parse(main.GetAPI().GetCommRealData(e.sRealType, 30).Trim())))
-                        {
-                            main.conditionWindow.ReloadPanel(i);
-                            return;
-                        }
-                        if (main.conditionWindow != null)
-                        {
-                            index = onPlayConditions[i].stocks.FindIndex(a => a.code == realcode);
-                            main.conditionWindow.ReloadPanel(i, index);
-                        }
-                    }
                 }
             }
         }
@@ -257,12 +224,6 @@ namespace StockTest
                     for (int i = 0; i < cnt; i++)
                     {
                         condition.AddData(main.RealCode(main.GetAPI().GetCommData(e.sTrCode, e.sRQName, i, "종목코드").Trim()), Math.Abs(int.Parse(main.GetAPI().GetCommData(e.sTrCode, e.sRQName, i, "현재가").Trim())), float.Parse(main.GetAPI().GetCommData(e.sTrCode, e.sRQName, i, "등락율").Trim()), int.Parse(main.GetAPI().GetCommData(e.sTrCode, e.sRQName, i, "전일대비").Trim()), float.Parse(main.GetAPI().GetCommData(e.sTrCode, e.sRQName, i, "전일거래량대비").Trim()));
-                    }
-                    if (main.conditionWindow != null)
-                    {
-                        for(int i = 0; i < onPlayConditions.Length; i++)
-                            if(onPlayConditions[i] == condition)
-                                main.conditionWindow.ReloadPanel(i);
                     }
                 }
             }
@@ -290,12 +251,6 @@ namespace StockTest
                     stock.scrnum = main.get_scr_no();
                     main.GetAPI().SetRealReg(stock.scrnum, stock.code, "20;41;10;951;", "1");
                 }
-                if (main.conditionWindow != null)
-                {
-                    for (int i = 0; i < onPlayConditions.Length; i++)
-                        if (onPlayConditions[i].name == e.strConditionName)
-                            main.conditionWindow.ReloadPanel(i);
-                }
             }
             else if (e.strType == "D")//종목 이탈
             {
@@ -309,12 +264,6 @@ namespace StockTest
                         return;
                 }
                 main.GetAPI().DisconnectRealData(stock.scrnum);
-                if (main.conditionWindow != null)
-                {
-                    for (int i = 0; i < onPlayConditions.Length; i++)
-                        if (onPlayConditions[i].name == e.strConditionName)
-                            main.conditionWindow.ReloadPanel(i);
-                }
             }
         }
 

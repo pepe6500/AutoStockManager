@@ -22,7 +22,6 @@ namespace StockTest
         public int addConditionIndex = 0;
         public string scrnum;
         public int buyType = 0;
-        public string linked = null;
 
 
         public List<StockInfo> stocks = new List<StockInfo>();
@@ -121,26 +120,6 @@ namespace StockTest
                             int buycount = buyMoney / price;
                             if (buycount > 0)
                             {
-                                if(linked != null)
-                                {
-                                    StockInfo findstock = main.conditionProcess.conditions.Find(a => a.name == linked).stocks.Find(a => a.name == stock.name);
-                                    if(findstock != null)
-                                    {
-                                        switch (main.conditionProcess.conditions.Find(a => a.name == linked).addConditionIndex)
-                                        {
-                                            case 1:
-                                                if (netChangeTrading < main.conditionProcess.conditions.Find(a => a.name == linked).minValue)
-                                                    return false;
-                                                break;
-                                        }
-                                        main.conditionProcess.conditions.Find(a => a.name == linked).buyStocks.Add(stock);
-                                    }
-                                    else
-                                    {
-                                        return false;
-                                    }
-
-                                }
                                 switch (buyType)
                                 {
                                     case 0:
@@ -162,7 +141,6 @@ namespace StockTest
                                 }
 
                                 main.insert_tb_accnt_info(stock.code, stock.name, main.GetMainAccountNum(), stock.price, 0, stock.price);
-                                main.conditionProcess.SetDefault(stock.code, main.GetMainAccountNum());
                                 buyStocks.Add(stock);
                                 return true;
                             }
@@ -215,26 +193,6 @@ namespace StockTest
                             int buycount = buyMoney / price;
                             if (buycount > 0)
                             {
-                                if (linked != null)
-                                {
-                                    StockInfo findstock = main.conditionProcess.conditions.Find(a => a.name == linked).stocks.Find(a => a.name == stock.name);
-                                    if (findstock != null)
-                                    {
-                                        switch (main.conditionProcess.conditions.Find(a => a.name == linked).addConditionIndex)
-                                        {
-                                            case 1:
-                                                if (netChangeTrading < main.conditionProcess.conditions.Find(a => a.name == linked).minValue)
-                                                    return false;
-                                                break;
-                                        }
-                                        main.conditionProcess.conditions.Find(a => a.name == linked).buyStocks.Add(stock);
-                                    }
-                                    else
-                                    {
-                                        return false;
-                                    }
-
-                                }
                                 switch (buyType)
                                 {
                                     case 0:
@@ -256,7 +214,6 @@ namespace StockTest
                                 }
 
                                 main.insert_tb_accnt_info(stock.code, stock.name, main.GetMainAccountNum(), stock.price, 0, stock.price);
-                                main.conditionProcess.SetDefault(stock.code, main.GetMainAccountNum());
                                 buyStocks.Add(stock);
                                 return true;
                             }

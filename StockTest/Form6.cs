@@ -101,7 +101,7 @@ namespace StockTest
                     ((DataGridViewComboBoxColumn)dataGridView1.Columns[2]).Items.Add("시장가");
                     ((DataGridViewComboBoxColumn)dataGridView1.Columns[4]).Items.Add("현재가");
                     ((DataGridViewComboBoxColumn)dataGridView1.Columns[4]).Items.Add("시장가");
-                    for (int i = 0; i < main.conditionProcess.sell_conditions.Length; i++)
+                    for (int i = 0; i < stockChecker.sell_conditions.Length; i++)
                     {
                         //DataGridViewComboBoxCell comboBoxCell = new DataGridViewComboBoxCell();
                         //comboBoxCell.DisplayStyle = DataGridViewComboBoxDisplayStyle.ComboBox;
@@ -158,15 +158,6 @@ namespace StockTest
                 }
                 else
                 {
-                    textBox1.Text = main.conditionProcess.sell_start.ToString("##0.0");
-                    textBox2.Text = main.conditionProcess.sell_end.ToString("##0.0");
-                    textBox3.Text = main.conditionProcess.sell_per.ToString("##0.00");
-                    textBox6.Text = main.conditionProcess.buy_start.ToString("##0.0");
-                    textBox5.Text = main.conditionProcess.buy_end.ToString("##0.0");
-                    textBox4.Text = main.conditionProcess.buy_per.ToString("##0.00");
-                    textBox9.Text = main.conditionProcess.highbuy_start.ToString("##0.0");
-                    textBox8.Text = main.conditionProcess.highbuy_end.ToString("##0.0");
-                    textBox7.Text = main.conditionProcess.highbuy_per.ToString("##0.00");
                     textBox1.Click += textBox1_TextChanged;
                     textBox2.Click += textBox2_TextChanged;
                     textBox3.Click += textBox3_TextChanged;
@@ -180,30 +171,6 @@ namespace StockTest
                     ((DataGridViewComboBoxColumn)dataGridView1.Columns[2]).Items.Add("시장가");
                     ((DataGridViewComboBoxColumn)dataGridView1.Columns[4]).Items.Add("현재가");
                     ((DataGridViewComboBoxColumn)dataGridView1.Columns[4]).Items.Add("시장가");
-                    for (int i = 0; i < main.conditionProcess.sell_conditions.Length; i++)
-                    {
-                        //DataGridViewComboBoxCell comboBoxCell = new DataGridViewComboBoxCell();
-                        //comboBoxCell.DisplayStyle = DataGridViewComboBoxDisplayStyle.ComboBox;
-                        //comboBoxCell.Items.Add("현재가");
-                        //comboBoxCell.Items.Add("시장가");
-                        //DataGridViewComboBoxCell comboBoxCell2 = new DataGridViewComboBoxCell();
-                        //comboBoxCell2.DisplayStyle = DataGridViewComboBoxDisplayStyle.ComboBox;
-                        //comboBoxCell2.Items.Add("현재가");
-                        //comboBoxCell2.Items.Add("시장가");
-                        dataGridView1.Rows.Add("", main.conditionProcess.sell_conditions[i], kinds[0], main.conditionProcess.buy_conditions[i], kinds[0]);
-
-                        //dataGridView1.Rows[i].Cells[2] = comboBoxCell;
-                        dataGridView1.Rows[i].Cells[1].Value = main.conditionProcess.sell_conditions[i];
-                        dataGridView1.Rows[i].Cells[3].Value = main.conditionProcess.buy_conditions[i];
-                        dataGridView1.Rows[i].Cells[2].Value = kinds[main.conditionProcess.sell_kinds[i]];
-                        //dataGridView1.Rows[i].Cells[4] = comboBoxCell2;
-                        dataGridView1.Rows[i].Cells[4].Value = kinds[main.conditionProcess.buy_kinds[i]];
-                        for (int j = 0; j < dataGridView1.ColumnCount; j++)
-                        {
-                            dataGridView1.Rows[i].Cells[j].Style.BackColor = SystemColors.Window;
-                            dataGridView1.Rows[i].Cells[j].Style.SelectionBackColor = SystemColors.Window;
-                        }
-                    }
 
 
 
@@ -479,42 +446,6 @@ namespace StockTest
                     {
                         ((Button)main.Controls["flowLayoutPanel1"].Controls["panel" + (stockChecker.index + 1)].Controls["button6"]).BackColor = Color.Firebrick;
                     }
-                }
-                else
-                {
-                    main.Send_Log("기본 틱설정 변경");
-                    for (int i = 0; i < main.conditionProcess.sell_conditions.Length; i++)
-                    {
-                        main.conditionProcess.sell_conditions[i] = (int)dataGridView1.Rows[i].Cells[1].Value;
-                        if ((string)dataGridView1.Rows[i].Cells[2].Value == "현재가")
-                        {
-                            main.conditionProcess.sell_kinds[i] = 0;
-                        }
-                        else if ((string)dataGridView1.Rows[i].Cells[2].Value == "시장가")
-                        {
-                            main.conditionProcess.sell_kinds[i] = 1;
-                        }
-                        //main.conditionProcess.sell_kinds[i] = (int)dataGridView1.Rows[i].Cells[2].Value;
-                        main.conditionProcess.buy_conditions[i] = (int)dataGridView1.Rows[i].Cells[3].Value;
-                        if ((string)dataGridView1.Rows[i].Cells[4].Value == "현재가")
-                        {
-                            main.conditionProcess.buy_kinds[i] = 0;
-                        }
-                        else if ((string)dataGridView1.Rows[i].Cells[4].Value == "시장가")
-                        {
-                            main.conditionProcess.buy_kinds[i] = 1;
-                        }
-                        //main.conditionProcess.buy_kinds[i] = (int)dataGridView1.Rows[i].Cells[4].Value;
-                    }
-                    main.conditionProcess.sell_start = float.Parse(textBox1.Text);
-                    main.conditionProcess.sell_end = float.Parse(textBox2.Text);
-                    main.conditionProcess.sell_per = float.Parse(textBox3.Text);
-                    main.conditionProcess.buy_start = float.Parse(textBox6.Text);
-                    main.conditionProcess.buy_end = float.Parse(textBox5.Text);
-                    main.conditionProcess.buy_per = float.Parse(textBox4.Text);
-                    main.conditionProcess.highbuy_start = float.Parse(textBox9.Text);
-                    main.conditionProcess.highbuy_end = float.Parse(textBox8.Text);
-                    main.conditionProcess.highbuy_per = float.Parse(textBox7.Text);
                 }
             }
             else

@@ -47,8 +47,8 @@ namespace StockTest
         Object getinfo = null;
         public string g_user_id = null;
         string g_accnt_no = null; // 증권계좌번호
-        String l_accno_cnt = "0"; // 소유한 증권계좌번호의 수
-        String[] l_accno_arr = null; // N개의 증권계좌번호를 저장할 배열
+        string l_accno_cnt = "0"; // 소유한 증권계좌번호의 수
+        string[] l_accno_arr = null; // N개의 증권계좌번호를 저장할 배열
         bool[] enabled_accno_arr = null;
 
         int g_cur_price = 0; // 현재가
@@ -853,9 +853,9 @@ namespace StockTest
                             pri -= pri % 50;
                             for (int j = 0; j < 10; j++)
                             {
-                                stockCheckers[i].gridView.Rows[j].Cells[0].Value = String.Format("{0:#,###}", stockCheckers[i].PriceMoveTick(pri, 10 - j));
+                                stockCheckers[i].gridView.Rows[j].Cells[0].Value = string.Format("{0:#,###}", stockCheckers[i].PriceMoveTick(pri, 10 - j));
                                 stockCheckers[i].prices[j] = stockCheckers[i].PriceMoveTick(pri, 10 - j);
-                                stockCheckers[i].gridView.Rows[10 + j].Cells[0].Value = String.Format("{0:#,###}", stockCheckers[i].PriceMoveTick(pri, -j));
+                                stockCheckers[i].gridView.Rows[10 + j].Cells[0].Value = string.Format("{0:#,###}", stockCheckers[i].PriceMoveTick(pri, -j));
                                 stockCheckers[i].prices[10 + j] = stockCheckers[i].PriceMoveTick(pri, -j);
                                 stockCheckers[i].AddPriceData(pri, DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second);
                             }
@@ -1330,7 +1330,7 @@ namespace StockTest
                     {
                         newStockChecker.targetPrice = int.Parse(xmlData.Find(keyString + ".targetPrice").value.Trim());
                         if (newStockChecker.targetPrice != 0)
-                            ((Label)newStockChecker.pan.Controls["targetprice_text"]).Text = "목표가: " + String.Format("{0:#,###}", newStockChecker.targetPrice / 10000) + "만원";
+                            ((Label)newStockChecker.pan.Controls["targetprice_text"]).Text = "목표가: " + string.Format("{0:#,###}", newStockChecker.targetPrice / 10000) + "만원";
                         else
                             ((Label)newStockChecker.pan.Controls["targetprice_text"]).Text = "목표가: 0원";
 
@@ -1387,7 +1387,7 @@ namespace StockTest
 
                     newStockChecker.targetPrice = targetPrice;
                     if (newStockChecker.targetPrice != 0)
-                        ((Label)newStockChecker.pan.Controls["targetprice_text"]).Text = "목표가: " + String.Format("{0:#,###}", newStockChecker.targetPrice / 10000) + "만원";
+                        ((Label)newStockChecker.pan.Controls["targetprice_text"]).Text = "목표가: " + string.Format("{0:#,###}", newStockChecker.targetPrice / 10000) + "만원";
                     else
                         ((Label)newStockChecker.pan.Controls["targetprice_text"]).Text = "목표가: 0원";
 
@@ -1467,8 +1467,8 @@ namespace StockTest
                     if (time)
                     {
                         DateTime l_cur_time;
-                        String l_cur_tm;
-                        String l_cur_dtm;
+                        string l_cur_tm;
+                        string l_cur_dtm;
                         l_cur_tm = "";
                         l_cur_time = DateTime.Now;
                         l_cur_tm = l_cur_time.ToString("HH:mm:ss");
@@ -1494,8 +1494,8 @@ namespace StockTest
                 {
                     string res = "";
                     DateTime l_cur_time;
-                    String l_cur_tm;
-                    String l_cur_dtm;
+                    string l_cur_tm;
+                    string l_cur_dtm;
                     l_cur_tm = "";
                     l_cur_time = DateTime.Now;
                     l_cur_tm = l_cur_time.ToString("HH:mm:ss");
@@ -1519,8 +1519,8 @@ namespace StockTest
                     if (time)
                     {
                         DateTime l_cur_time;
-                        String l_cur_tm;
-                        String l_cur_dtm;
+                        string l_cur_tm;
+                        string l_cur_dtm;
                         l_cur_tm = "";
                         l_cur_time = DateTime.Now;
                         l_cur_tm = l_cur_time.ToString("HH:mm:ss");
@@ -1560,7 +1560,7 @@ namespace StockTest
             catch (Exception e)
             {
                 PlayEffect(25);
-                Send_Log("Send_Log() [" + e.Message + "]");
+                // Send_Log("Send_Log() [" + e.Message + "]");
             }
         }
         public void Send_Log(string msg)
@@ -1570,8 +1570,8 @@ namespace StockTest
                 if (logbox != null)
                 {
                     DateTime l_cur_time;
-                    String l_cur_tm;
-                    String l_cur_dtm;
+                    string l_cur_tm;
+                    string l_cur_dtm;
                     l_cur_tm = "";
                     l_cur_time = DateTime.Now;
                     l_cur_tm = l_cur_time.ToString("HH:mm:ss");
@@ -1608,7 +1608,7 @@ namespace StockTest
             catch (Exception e)
             {
                 PlayEffect(25);
-                Send_Log("Send_Log() [" + e.Message + "]");
+                // Send_Log("Send_Log() [" + e.Message + "]");
             }
         }
 
@@ -1743,9 +1743,9 @@ namespace StockTest
                 g_flag_2 = 1;
                 int repeat_cnt = 0;
                 int ii = 0;
-                String user_id = null;
-                String jongmok_cd = null;
-                String jongmok_nm = null;
+                string user_id = null;
+                string jongmok_cd = null;
+                string jongmok_nm = null;
                 int own_stock_cnt = 0;
                 int buy_price = 0;
                 int own_amt = 0;
@@ -1897,7 +1897,7 @@ namespace StockTest
 
         private void ChangePossibleAmountText(int possible_Amount)
         {
-            label14.Text = "예수금: " + String.Format("{0:#,###}", possible_Amount);
+            label14.Text = "예수금: " + string.Format("{0:#,###}", possible_Amount);
         }
 
         private void axKHOpenAPI1_OnReceiveMsg(object sender, AxKHOpenAPILib._DKHOpenAPIEvents_OnReceiveMsgEvent e)
@@ -2036,9 +2036,9 @@ namespace StockTest
                             return;
                         for (int j = 0; j < 10; j++)
                         {
-                            stock.gridView.Rows[j].Cells[0].Value = String.Format("{0:#,###}", Math.Abs(int.Parse(axKHOpenAPI1.GetCommRealData(e.sRealType, 50 - j).Trim())));
+                            stock.gridView.Rows[j].Cells[0].Value = string.Format("{0:#,###}", Math.Abs(int.Parse(axKHOpenAPI1.GetCommRealData(e.sRealType, 50 - j).Trim())));
                             stock.prices[j] = Math.Abs(int.Parse(axKHOpenAPI1.GetCommRealData(e.sRealType, 50 - j).Trim()));
-                            stock.gridView.Rows[19 - j].Cells[0].Value = String.Format("{0:#,###}", Math.Abs(int.Parse(axKHOpenAPI1.GetCommRealData(e.sRealType, 60 - j).Trim())));
+                            stock.gridView.Rows[19 - j].Cells[0].Value = string.Format("{0:#,###}", Math.Abs(int.Parse(axKHOpenAPI1.GetCommRealData(e.sRealType, 60 - j).Trim())));
                             stock.prices[19 - j] = Math.Abs(int.Parse(axKHOpenAPI1.GetCommRealData(e.sRealType, 60 - j).Trim()));
                         }
                         if (stock.is_playing)
@@ -2059,7 +2059,7 @@ namespace StockTest
             Process currentProcess = Process.GetCurrentProcess();
             // 2. Obtain the used memory by the process
             long usedMemory = currentProcess.PrivateMemorySize64;
-            label16.Text = "메모리 : " + String.Format("{0:#,###}", usedMemory);
+            label16.Text = "메모리 : " + string.Format("{0:#,###}", usedMemory);
         }
 
 
@@ -2195,7 +2195,7 @@ namespace StockTest
                     {
                         PlayEffect(0);
                     }
-                    //Send_Log(name + " : " + count + " 개 " + String.Format("{0:#,###}", price) + "원 지정가 매도");
+                    //Send_Log(name + " : " + count + " 개 " + string.Format("{0:#,###}", price) + "원 지정가 매도");
                 }
                 else
                 {
@@ -2225,7 +2225,7 @@ namespace StockTest
                 if (errcode == 0)
                 {
                     PlayEffect(2);
-                    //Send_Log(name + " : " + count + " 개 " + String.Format("{0:#,###}", price) + "원 지정가 매수");
+                    //Send_Log(name + " : " + count + " 개 " + string.Format("{0:#,###}", price) + "원 지정가 매수");
                 }
                 else
                 {
@@ -2897,7 +2897,7 @@ namespace StockTest
             SetCountColor();
             ((Label)pan.Controls["targetcount"]).Text = "목표수량: " + targetCount;
             ((Label)pan.Controls["targetprice_text"]).Text = "목표가: " + targetPrice / 10000 + "만원";
-            ((Label)pan.Controls["panel3"].Controls["label12"]).Text = "기준가: " + String.Format("{0:#,###}", markPrice.price);
+            ((Label)pan.Controls["panel3"].Controls["label12"]).Text = "기준가: " + string.Format("{0:#,###}", markPrice.price);
             markPrice.time.hour = price.time.hour;
             markPrice.time.min = price.time.min;
             markPrice.time.sec = price.time.sec;
@@ -2905,13 +2905,13 @@ namespace StockTest
             sell_count = targetCount / (sell_end - sell_start) * sell_per / 100;
             highmesu_markprice = price.price;
             highmesu_highprice = price.price;
-            ((Label)pan.Controls["label15"]).Text = "상승기준: " + String.Format("{0:#,###}", highmesu_markprice);
+            ((Label)pan.Controls["label15"]).Text = "상승기준: " + string.Format("{0:#,###}", highmesu_markprice);
             if (is_highmedo)
             {
                 if (is_highmedo_per)
                 {
                     highMedo_per = (int)(price.price * highMedo_perval / 100f);
-                    ((Label)pan.Controls["label6"]).Text = "고매:" + highMedo_perval.ToString("##0.0") + ":" + String.Format("{0:#,###}", all_high_price - highMedo_per);
+                    ((Label)pan.Controls["label6"]).Text = "고매:" + highMedo_perval.ToString("##0.0") + ":" + string.Format("{0:#,###}", all_high_price - highMedo_per);
                 }
             }
             SetCounts();
@@ -2959,7 +2959,7 @@ namespace StockTest
             highmesu_markprice = price.price;
             highmesu_highprice = price.price;
             ((Label)pan.Controls["label15"]).Visible = (is_sell && is_highmesu);
-            ((Label)pan.Controls["label15"]).Text = "상승기준: " + String.Format("{0:#,###}", highmesu_markprice);
+            ((Label)pan.Controls["label15"]).Text = "상승기준: " + string.Format("{0:#,###}", highmesu_markprice);
         }
 
         public void EVT_ChangeMesu(object sender, EventArgs e)
@@ -2977,7 +2977,7 @@ namespace StockTest
             highmesu_markprice = price.price;
             highmesu_highprice = price.price;
             ((Label)pan.Controls["label15"]).Visible = (is_sell && is_highmesu);
-            ((Label)pan.Controls["label15"]).Text = "상승기준: " + String.Format("{0:#,###}", highmesu_markprice);
+            ((Label)pan.Controls["label15"]).Text = "상승기준: " + string.Format("{0:#,###}", highmesu_markprice);
             SetPanelColor();
         }
         
@@ -2998,7 +2998,7 @@ namespace StockTest
             {
                 this.targetPrice = a * 10000;
                 this.targetisprice = true;
-                ((Label)pan.Controls["targetprice_text"]).Text = "목표가: " + String.Format("{0:#,###}", a) + "만원";
+                ((Label)pan.Controls["targetprice_text"]).Text = "목표가: " + string.Format("{0:#,###}", a) + "만원";
                 main.Send_Log(accnt_no + " " + name + " 목표가" + a + "만 변경");
                 SetCounts();
                 ReloadHoga();
@@ -3014,7 +3014,7 @@ namespace StockTest
                 this.targetisprice = false;
                 this.targetPrice = 0;
                 ((Label)pan.Controls["targetprice_text"]).Text = "목표가: "+ (targetCount * price.price) / 10000 + "만원";
-                ((Label)pan.Controls["targetcount"]).Text = "목표개수: " + String.Format("{0:#,###}", a) + "개";
+                ((Label)pan.Controls["targetcount"]).Text = "목표개수: " + string.Format("{0:#,###}", a) + "개";
                 main.Send_Log(accnt_no + " " + name + " 목표개수" + a + "개 변경");
                 SetCounts();
                 ReloadHoga();
@@ -3029,7 +3029,7 @@ namespace StockTest
                 markPrice.price = a;
                 highmesu_markprice = a;
                 ((Label)pan.Controls["label15"]).Visible = (is_sell && is_highmesu);
-                ((Label)pan.Controls["label15"]).Text = "상승기준: " + String.Format("{0:#,###}", highmesu_markprice);
+                ((Label)pan.Controls["label15"]).Text = "상승기준: " + string.Format("{0:#,###}", highmesu_markprice);
                 main.Send_Log(accnt_no + " " + name + " 기준가" + a + "원 변경");
                 ReloadPanel();
                 SetCounts();
@@ -3075,12 +3075,12 @@ namespace StockTest
                     if (a < 100)
                     {
                         cut_per = true;
-                        ((Label)pan.Controls["label11"]).Text = "손절: " + cut_price.ToString("##0.0") + "%" + Environment.NewLine + String.Format("{0:#,###}", realprice * ((100 - cut_price) / 100f));
+                        ((Label)pan.Controls["label11"]).Text = "손절: " + cut_price.ToString("##0.0") + "%" + Environment.NewLine + string.Format("{0:#,###}", realprice * ((100 - cut_price) / 100f));
                     }
                     else
                     {
                         cut_per = false;
-                        ((Label)pan.Controls["label11"]).Text = "손절: " + String.Format("{0:#,###}", cut_price) + "원";
+                        ((Label)pan.Controls["label11"]).Text = "손절: " + string.Format("{0:#,###}", cut_price) + "원";
                     }
 
                 }
@@ -3337,7 +3337,7 @@ namespace StockTest
                     {
                         if ((int)(count - remainCountVal) > 0)
                         {
-                            main.Send_Log(accnt_no + " " + total + name + " " + (int)(count - remainCountVal) + "개 " + String.Format("{0:#,###}", price.price) + "원 매도_부족 매도시 기준가: " + String.Format("{0:#,###}", markPrice.price) + " 최고가: " + String.Format("{0:#,###}", high_price), false);
+                            main.Send_Log(accnt_no + " " + total + name + " " + (int)(count - remainCountVal) + "개 " + string.Format("{0:#,###}", price.price) + "원 매도_부족 매도시 기준가: " + string.Format("{0:#,###}", markPrice.price) + " 최고가: " + string.Format("{0:#,###}", high_price), false);
                             state = StockState.selling;
                             real_sell_price = price.price;
                             if (sell_kinds[priceKind] == 0)
@@ -3361,7 +3361,7 @@ namespace StockTest
                         {
                             if (!haveEffect)
                             {
-                                main.Send_Log_Debug(accnt_no + " " + total + name + " 0개 " + String.Format("{0:#,###}", price.price) + "원 매도_부족 매도시 기준가: " + String.Format("{0:#,###}", markPrice.price) + " 최고가: " + String.Format("{0:#,###}", high_price), false);
+                                main.Send_Log_Debug(accnt_no + " " + total + name + " 0개 " + string.Format("{0:#,###}", price.price) + "원 매도_부족 매도시 기준가: " + string.Format("{0:#,###}", markPrice.price) + " 최고가: " + string.Format("{0:#,###}", high_price), false);
                                 state = StockState.selling;
                                 real_sell_price = price.price;
                                 totalcount -= (float)Math.Ceiling(totalcount);
@@ -3375,7 +3375,7 @@ namespace StockTest
                     }
                     else
                     {
-                        main.Send_Log(accnt_no + " " + total + name + " " + (int)Math.Ceiling(totalcount) + "개 " + String.Format("{0:#,###}", price.price) + "원 매도 매도시 기준가: " + String.Format("{0:#,###}", markPrice.price) + " 최고가: " + String.Format("{0:#,###}", high_price), false);
+                        main.Send_Log(accnt_no + " " + total + name + " " + (int)Math.Ceiling(totalcount) + "개 " + string.Format("{0:#,###}", price.price) + "원 매도 매도시 기준가: " + string.Format("{0:#,###}", markPrice.price) + " 최고가: " + string.Format("{0:#,###}", high_price), false);
                         state = StockState.selling;
                         real_sell_price = price.price;
                         if (sell_kinds[priceKind] == 0)
@@ -3414,7 +3414,7 @@ namespace StockTest
                 {
                     if (!haveEffect)
                     {
-                        main.Send_Log_Debug(accnt_no + " " + total + name + " 0 개 " + String.Format("{0:#,###}", price.price) + "원 매도 처리 매도시 기준가: " + String.Format("{0:#,###}", markPrice.price) + " 최고가: " + String.Format("{0:#,###}", high_price), false);
+                        main.Send_Log_Debug(accnt_no + " " + total + name + " 0 개 " + string.Format("{0:#,###}", price.price) + "원 매도 처리 매도시 기준가: " + string.Format("{0:#,###}", markPrice.price) + " 최고가: " + string.Format("{0:#,###}", high_price), false);
                         state = StockState.selling;
                         real_sell_price = price.price;
                         totalcount -= (float)Math.Ceiling(totalcount);
@@ -3484,7 +3484,7 @@ namespace StockTest
                 {
                     if (targetCount > count + (int)Math.Ceiling(totalcount))
                     {
-                        main.Send_Log(accnt_no + " " + total + name + " " + (int)Math.Ceiling(totalcount) + "개 " + String.Format("{0:#,###}", price.price) + "원 매수 매수시 기준가: " + String.Format("{0:#,###}", markPrice.price) + " 최저가: " + String.Format("{0:#,###}", low_price), false);
+                        main.Send_Log(accnt_no + " " + total + name + " " + (int)Math.Ceiling(totalcount) + "개 " + string.Format("{0:#,###}", price.price) + "원 매수 매수시 기준가: " + string.Format("{0:#,###}", markPrice.price) + " 최저가: " + string.Format("{0:#,###}", low_price), false);
                         real_buy_price = price.price;
                         if (buy_kinds[priceKind] == 0)
                         {
@@ -3504,7 +3504,7 @@ namespace StockTest
                         int nowcount = targetCount - count;
                         if (nowcount > 0)
                         {
-                            main.Send_Log(accnt_no + " " + total + name + " " + nowcount + "개 " + String.Format("{0:#,###}", price.price) + "원 매수_도달 매수시 기준가: " + String.Format("{0:#,###}", markPrice.price) + " 최저가: " + String.Format("{0:#,###}", low_price), false);
+                            main.Send_Log(accnt_no + " " + total + name + " " + nowcount + "개 " + string.Format("{0:#,###}", price.price) + "원 매수_도달 매수시 기준가: " + string.Format("{0:#,###}", markPrice.price) + " 최저가: " + string.Format("{0:#,###}", low_price), false);
                             real_buy_price = price.price;
                             if (buy_kinds[priceKind] == 0)
                             {
@@ -3523,7 +3523,7 @@ namespace StockTest
                         {
                             if (!haveEffect)
                             {
-                                main.Send_Log_Debug(accnt_no + " " + total + name + " 0개 " + String.Format("{0:#,###}", price.price) + "원 매수_도달 매수시 기준가: " + String.Format("{0:#,###}", markPrice.price) + " 최저가: " + String.Format("{0:#,###}", low_price), false);
+                                main.Send_Log_Debug(accnt_no + " " + total + name + " 0개 " + string.Format("{0:#,###}", price.price) + "원 매수_도달 매수시 기준가: " + string.Format("{0:#,###}", markPrice.price) + " 최저가: " + string.Format("{0:#,###}", low_price), false);
                                 real_buy_price = price.price;
                                 totalcount -= (float)Math.Ceiling(totalcount);
                                 now_buy_count = totalcount;
@@ -3556,8 +3556,8 @@ namespace StockTest
                 {
                     if (!haveEffect)
                     {
-                        main.Send_Log_Debug(accnt_no + " " + total + name + " 0개 " + String.Format("{0:#,###}", price.price) + "원 매수 처리", false);
-                        main.Send_Log_Debug(accnt_no + " " + "매수시 기준가: " + String.Format("{0:#,###}", markPrice.price) + " 최저가: " + String.Format("{0:#,###}", low_price), false);
+                        main.Send_Log_Debug(accnt_no + " " + total + name + " 0개 " + string.Format("{0:#,###}", price.price) + "원 매수 처리", false);
+                        main.Send_Log_Debug(accnt_no + " " + "매수시 기준가: " + string.Format("{0:#,###}", markPrice.price) + " 최저가: " + string.Format("{0:#,###}", low_price), false);
                         real_buy_price = price.price;
                     }
                     else
@@ -3678,7 +3678,7 @@ namespace StockTest
                 {
                     all_high_price = price.price;
                     if (is_highmedo_per)
-                        ((Label)pan.Controls["label6"]).Text = "고매:" + highMedo_perval.ToString("##0.0") + ":" + String.Format("{0:#,###}", all_high_price - highMedo_per);
+                        ((Label)pan.Controls["label6"]).Text = "고매:" + highMedo_perval.ToString("##0.0") + ":" + string.Format("{0:#,###}", all_high_price - highMedo_per);
                 }
 
 
@@ -3716,7 +3716,7 @@ namespace StockTest
                         {
                             highmesu_markprice = price.price;
                             highmesu_highprice = price.price;
-                            ((Label)pan.Controls["label15"]).Text = "상승기준: " + String.Format("{0:#,###}", highmesu_markprice);
+                            ((Label)pan.Controls["label15"]).Text = "상승기준: " + string.Format("{0:#,###}", highmesu_markprice);
                             highbuy_count = targetCount / (highbuy_end - highbuy_start) * highbuy_per / 100;
                         }
                         if (highmesu_highprice < price.price)
@@ -3752,7 +3752,7 @@ namespace StockTest
 
                                 if (targetCount > count + (int)Math.Ceiling(now_highbuy_count))
                                 {
-                                    main.Send_Log(accnt_no + " " + total + name + " " + (int)Math.Ceiling(now_highbuy_count) + "개 " + String.Format("{0:#,###}", price.price) + "원 상승매수", false);
+                                    main.Send_Log(accnt_no + " " + total + name + " " + (int)Math.Ceiling(now_highbuy_count) + "개 " + string.Format("{0:#,###}", price.price) + "원 상승매수", false);
                                     highmesu_highprice = price.price;
                                     if (buy_kinds[priceKind] == 0)
                                     {
@@ -3770,14 +3770,14 @@ namespace StockTest
                                     int nowcount = targetCount - count;
                                     if (nowcount > 0)
                                     {
-                                        main.Send_Log(accnt_no + " " + total + name + " " + nowcount + "개 " + String.Format("{0:#,###}", price.price) + "원 상승매수_도달", false);
+                                        main.Send_Log(accnt_no + " " + total + name + " " + nowcount + "개 " + string.Format("{0:#,###}", price.price) + "원 상승매수_도달", false);
                                         is_highmesu = false;
                                         now_sell_count = 0;
                                         main.Send_Log(accnt_no + " " + name + " 상승매수 변경");
                                         ((CheckBox)pan.Controls["highmesu"]).Checked = is_highmesu;
                                         highmesu_markprice = price.price;
                                         highmesu_highprice = price.price;
-                                        ((Label)pan.Controls["label15"]).Text = "상승기준: " + String.Format("{0:#,###}", highmesu_markprice);
+                                        ((Label)pan.Controls["label15"]).Text = "상승기준: " + string.Format("{0:#,###}", highmesu_markprice);
                                         markPrice.price = price.price;
                                         if (buy_kinds[priceKind] == 0)
                                         {
@@ -3794,7 +3794,7 @@ namespace StockTest
                                     {
                                         if (!haveEffect)
                                         {
-                                            main.Send_Log_Debug(accnt_no + " " + total + name + " 0개 " + String.Format("{0:#,###}", price.price) + "원 상승매수_도달", false);
+                                            main.Send_Log_Debug(accnt_no + " " + total + name + " 0개 " + string.Format("{0:#,###}", price.price) + "원 상승매수_도달", false);
                                             is_highmesu = false;
                                             now_sell_count = 0;
                                             main.Send_Log(accnt_no + " " + name + " 상승매수 변경");
@@ -3802,7 +3802,7 @@ namespace StockTest
                                             highmesu_markprice = price.price;
                                             highmesu_highprice = price.price;
                                             markPrice.price = price.price;
-                                            ((Label)pan.Controls["label15"]).Text = "상승기준: " + String.Format("{0:#,###}", highmesu_markprice);
+                                            ((Label)pan.Controls["label15"]).Text = "상승기준: " + string.Format("{0:#,###}", highmesu_markprice);
                                         }
                                     }
                                 }
@@ -3835,7 +3835,7 @@ namespace StockTest
                     SetCountColor();
                     ((Label)pan.Controls["targetcount"]).Text = "목표수량: " + targetCount;
                     ((Label)pan.Controls["targetprice_text"]).Text = "목표가: " + targetPrice / 10000 + "만원";
-                    ((Label)pan.Controls["panel3"].Controls["label12"]).Text = "기준가: " + String.Format("{0:#,###}", markPrice.price);
+                    ((Label)pan.Controls["panel3"].Controls["label12"]).Text = "기준가: " + string.Format("{0:#,###}", markPrice.price);
                     markPrice.time.hour = price.time.hour;
                     markPrice.time.min = price.time.min;
                     markPrice.time.sec = price.time.sec;
@@ -3889,7 +3889,7 @@ namespace StockTest
                             real_sell_price = -1;
                             ((Label)pan.Controls["targetcount"]).Text = "목표수량: " + targetCount;
                             ((Label)pan.Controls["targetprice_text"]).Text = "목표가: " + targetPrice / 10000 + "만원";
-                            ((Label)pan.Controls["panel3"].Controls["label12"]).Text = "기준가: " + String.Format("{0:#,###}", markPrice.price);
+                            ((Label)pan.Controls["panel3"].Controls["label12"]).Text = "기준가: " + string.Format("{0:#,###}", markPrice.price);
                             //state = StockState.sellwait;
                             SetNowState(StockState.sellwait);
 
@@ -3904,7 +3904,7 @@ namespace StockTest
                             real_buy_price = int.MaxValue;
                             ((Label)pan.Controls["targetcount"]).Text = "목표수량: " + targetCount;
                             ((Label)pan.Controls["targetprice_text"]).Text = "목표가: " + targetPrice / 10000 + "만원";
-                            ((Label)pan.Controls["panel3"].Controls["label12"]).Text = "기준가: " + String.Format("{0:#,###}", markPrice.price);
+                            ((Label)pan.Controls["panel3"].Controls["label12"]).Text = "기준가: " + string.Format("{0:#,###}", markPrice.price);
                             //state = StockState.buywait;
                             SetNowState(StockState.buywait);
 
@@ -3921,7 +3921,7 @@ namespace StockTest
                             markPrice.price = price.price;
                             ((Label)pan.Controls["targetcount"]).Text = "목표수량: " + targetCount;
                             ((Label)pan.Controls["targetprice_text"]).Text = "목표가: " + targetPrice / 10000 + "만원";
-                            ((Label)pan.Controls["panel3"].Controls["label12"]).Text = "기준가: " + String.Format("{0:#,###}", markPrice.price);
+                            ((Label)pan.Controls["panel3"].Controls["label12"]).Text = "기준가: " + string.Format("{0:#,###}", markPrice.price);
                             markPrice.time.hour = price.time.hour;
                             markPrice.time.min = price.time.min;
                             markPrice.time.sec = price.time.sec;
@@ -3974,7 +3974,7 @@ namespace StockTest
                             markPrice.price = price.price;
                             ((Label)pan.Controls["targetcount"]).Text = "목표수량: " + targetCount;
                             ((Label)pan.Controls["targetprice_text"]).Text = "목표가: " + targetPrice / 10000 + "만원";
-                            ((Label)pan.Controls["panel3"].Controls["label12"]).Text = "기준가: " + String.Format("{0:#,###}", markPrice.price);
+                            ((Label)pan.Controls["panel3"].Controls["label12"]).Text = "기준가: " + string.Format("{0:#,###}", markPrice.price);
                             markPrice.time.hour = price.time.hour;
                             markPrice.time.min = price.time.min;
                             markPrice.time.sec = price.time.sec;
@@ -4024,7 +4024,7 @@ namespace StockTest
                             markPrice.price = price.price;
                             ((Label)pan.Controls["targetcount"]).Text = "목표수량: " + targetCount;
                             ((Label)pan.Controls["targetprice_text"]).Text = "목표가: " + targetPrice / 10000 + "만원";
-                            ((Label)pan.Controls["panel3"].Controls["label12"]).Text = "기준가: " + String.Format("{0:#,###}", markPrice.price);
+                            ((Label)pan.Controls["panel3"].Controls["label12"]).Text = "기준가: " + string.Format("{0:#,###}", markPrice.price);
                             markPrice.time.hour = price.time.hour;
                             markPrice.time.min = price.time.min;
                             markPrice.time.sec = price.time.sec;
@@ -4047,7 +4047,7 @@ namespace StockTest
                             markPrice.price = real_sell_price;
                             ((Label)pan.Controls["targetcount"]).Text = "목표수량: " + targetCount;
                             ((Label)pan.Controls["targetprice_text"]).Text = "목표가: " + targetPrice / 10000 + "만원";
-                            ((Label)pan.Controls["panel3"].Controls["label12"]).Text = "기준가: " + String.Format("{0:#,###}", markPrice.price);
+                            ((Label)pan.Controls["panel3"].Controls["label12"]).Text = "기준가: " + string.Format("{0:#,###}", markPrice.price);
                             markPrice.time.hour = price.time.hour;
                             markPrice.time.min = price.time.min;
                             markPrice.time.sec = price.time.sec;
@@ -4074,7 +4074,7 @@ namespace StockTest
                             markPrice.price = price.price;
                             ((Label)pan.Controls["targetcount"]).Text = "목표수량: " + targetCount;
                             ((Label)pan.Controls["targetprice_text"]).Text = "목표가: " + targetPrice / 10000 + "만원";
-                            ((Label)pan.Controls["panel3"].Controls["label12"]).Text = "기준가: " + String.Format("{0:#,###}", markPrice.price);
+                            ((Label)pan.Controls["panel3"].Controls["label12"]).Text = "기준가: " + string.Format("{0:#,###}", markPrice.price);
                             markPrice.time.hour = price.time.hour;
                             markPrice.time.min = price.time.min;
                             markPrice.time.sec = price.time.sec;
@@ -4097,7 +4097,7 @@ namespace StockTest
                             markPrice.price = real_buy_price;
                             ((Label)pan.Controls["targetcount"]).Text = "목표수량: " + targetCount;
                             ((Label)pan.Controls["targetprice_text"]).Text = "목표가: " + targetPrice / 10000 + "만원";
-                            ((Label)pan.Controls["panel3"].Controls["label12"]).Text = "기준가: " + String.Format("{0:#,###}", markPrice.price);
+                            ((Label)pan.Controls["panel3"].Controls["label12"]).Text = "기준가: " + string.Format("{0:#,###}", markPrice.price);
                             markPrice.time.hour = price.time.hour;
                             markPrice.time.min = price.time.min;
                             markPrice.time.sec = price.time.sec;
@@ -4127,7 +4127,7 @@ namespace StockTest
                     if (is_highmedo_per)
                     {
                         highMedo_per = (int)(price.price * highMedo_perval / 100f);
-                        ((Label)pan.Controls["label6"]).Text = "고매:" + highMedo_perval.ToString("##0.0") + ":" + String.Format("{0:#,###}", all_high_price - highMedo_per);
+                        ((Label)pan.Controls["label6"]).Text = "고매:" + highMedo_perval.ToString("##0.0") + ":" + string.Format("{0:#,###}", all_high_price - highMedo_per);
                     }
                 }
                 for (int i = 0; i < 20; i++)
@@ -4154,22 +4154,22 @@ namespace StockTest
         public void ShowState()
         {
             string msg = "";
-            msg += "현재가: " + String.Format("{0:#,###}", price.price);
+            msg += "현재가: " + string.Format("{0:#,###}", price.price);
             if (state == StockState.buywait)
             {
-                msg += " 하락중 최저가:" + String.Format("{0:#,###}", low_price) + " 매수가: " + String.Format("{0:#,###}", buy_price);
+                msg += " 하락중 최저가:" + string.Format("{0:#,###}", low_price) + " 매수가: " + string.Format("{0:#,###}", buy_price);
             }
             else if (state == StockState.sellwait)
             {
-                msg += " 상승중 최고가:" + String.Format("{0:#,###}", high_price) + " 매도가: " + String.Format("{0:#,###}", sell_price);
+                msg += " 상승중 최고가:" + string.Format("{0:#,###}", high_price) + " 매도가: " + string.Format("{0:#,###}", sell_price);
             }
             else if (state == StockState.buying)
             {
-                msg += " 매수후 최저가:" + String.Format("{0:#,###}", low_price) + " 전매수가: " + String.Format("{0:#,###}", real_buy_price);
+                msg += " 매수후 최저가:" + string.Format("{0:#,###}", low_price) + " 전매수가: " + string.Format("{0:#,###}", real_buy_price);
             }
             else if (state == StockState.selling)
             {
-                msg += " 매도후 최고가:" + String.Format("{0:#,###}", high_price) + " 전매도가: " + String.Format("{0:#,###}", real_sell_price);
+                msg += " 매도후 최고가:" + string.Format("{0:#,###}", high_price) + " 전매도가: " + string.Format("{0:#,###}", real_sell_price);
             }
             else if (state == StockState.none)
             {
@@ -4409,7 +4409,7 @@ namespace StockTest
             ((CheckBox)pan.Controls["playing_cb"]).Checked = is_playing;
             ((Label)pan.Controls["label13"]).Visible = is_fixed;
             ((Label)pan.Controls["label15"]).Visible = (is_sell && is_highmesu);
-            ((Label)pan.Controls["label15"]).Text = "상승기준: " + String.Format("{0:#,###}", highmesu_markprice);
+            ((Label)pan.Controls["label15"]).Text = "상승기준: " + string.Format("{0:#,###}", highmesu_markprice);
             if (is_fixed)
             {
                 ((Button)pan.Controls["button6"]).BackColor = Color.RoyalBlue;
@@ -4421,7 +4421,7 @@ namespace StockTest
             ((CheckBox)pan.Controls["checkbox2"]).Checked = is_sell;
             ((CheckBox)pan.Controls["checkbox4"]).Checked = is_buy;
             if (targetPrice != 0)
-                ((Label)pan.Controls["targetprice_text"]).Text = "목표가: " + String.Format("{0:#,###}", targetPrice / 10000) + "만원";
+                ((Label)pan.Controls["targetprice_text"]).Text = "목표가: " + string.Format("{0:#,###}", targetPrice / 10000) + "만원";
             else
                 ((Label)pan.Controls["targetprice_text"]).Text = "목표가: 0원";
 
@@ -4456,19 +4456,19 @@ namespace StockTest
             ((Label)pan.Controls["label7"]).Text = "남김: " + remainCountVal + "개";
             ((CheckBox)pan.Controls["checkbox6"]).Checked = end_clear;
             if (is_highmedo_per)
-                ((Label)pan.Controls["label6"]).Text = "고매:" + highMedo_perval.ToString("##0.0") + ":" + String.Format("{0:#,###}", all_high_price - highMedo_per);
+                ((Label)pan.Controls["label6"]).Text = "고매:" + highMedo_perval.ToString("##0.0") + ":" + string.Format("{0:#,###}", all_high_price - highMedo_per);
             else
-                ((Label)pan.Controls["label6"]).Text = "고매:" + String.Format("{0:#,###}", highMedo_price) + "원";
+                ((Label)pan.Controls["label6"]).Text = "고매:" + string.Format("{0:#,###}", highMedo_price) + "원";
             ((CheckBox)pan.Controls["checkBox7"]).Checked = is_highmedo;
 
             if(cut_price < 100)
-                ((Label)pan.Controls["label11"]).Text = "손절: " + cut_price.ToString("##0.0") + "%" + Environment.NewLine + String.Format("{0:#,###}", realprice * ((100 - cut_price) / 100f));
+                ((Label)pan.Controls["label11"]).Text = "손절: " + cut_price.ToString("##0.0") + "%" + Environment.NewLine + string.Format("{0:#,###}", realprice * ((100 - cut_price) / 100f));
             else
-                ((Label)pan.Controls["label11"]).Text = "손절: " + String.Format("{0:#,###}", cut_price) + "원";
+                ((Label)pan.Controls["label11"]).Text = "손절: " + string.Format("{0:#,###}", cut_price) + "원";
 
             ((CheckBox)pan.Controls["checkBox8"]).Checked = is_cut;
             ((CheckBox)pan.Controls["checkBox9"]).Checked = is_rebuy;
-            ((Label)pan.Controls["panel3"].Controls["label12"]).Text = "기준가: " + String.Format("{0:#,###}", markPrice.price);
+            ((Label)pan.Controls["panel3"].Controls["label12"]).Text = "기준가: " + string.Format("{0:#,###}", markPrice.price);
             ((CheckBox)pan.Controls["checkbox1"]).Checked = haveEffect;
             ((CheckBox)pan.Controls["checkbox10"]).Checked = is_endLimit;
             ((CheckBox)pan.Controls["pricechangesound"]).Checked = is_price_change_sound;

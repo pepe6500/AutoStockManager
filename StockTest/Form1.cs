@@ -1195,8 +1195,8 @@ namespace StockTest
                     newpan.Controls.Add(((Button)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["button6"]).Clone());
                     newpan.Controls.Add(((CheckBox)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["checkBox1"]).Clone());
                     newpan.Controls.Add(((Label)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["label3"]).Clone());
-                    newpan.Controls.Add(((Label)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["label5"]).Clone());
-                    newpan.Controls.Add(((Label)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["label4"]).Clone());
+                    //newpan.Controls.Add(((Label)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["label5"]).Clone());
+                    //newpan.Controls.Add(((Label)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["label4"]).Clone());
                     newpan.Controls.Add(((Label)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["name"]).Clone());
                     newpan.Controls.Add(((CheckBox)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["highmesu"]).Clone());
                     newpan.Controls.Add(((CheckBox)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["pricechangesound"]).Clone());
@@ -3627,8 +3627,8 @@ namespace StockTest
                 susu += (int)(price.price * count * 0.0015);
             }
             benefit = ((((price.price * count) - susu) / (float)(realprice * count) * 100f) - 100);
-            ((Label)pan.Controls["label4"]).Text = "수: " + benefit.ToString("##0.00") + "%";
-            ((Label)pan.Controls["label5"]).Text = "등: " + fluctuation.ToString("##0.00") + "%";
+            //((Label)pan.Controls["label4"]).Text = "수: " + benefit.ToString("##0.00") + "%";
+            //((Label)pan.Controls["label5"]).Text = "등: " + fluctuation.ToString("##0.00") + "%";
 
             //작동알고리즘
             if (is_playing && main.allPlay)
@@ -4481,7 +4481,7 @@ namespace StockTest
                 susu += (int)(price.price * count * 0.0015);
             }
             benefit = ((((price.price * count) - susu) / ((float)realprice * count) * 100f) - 100);
-            ((Label)pan.Controls["label4"]).Text = "수: " + benefit.ToString("##0.00") + "%";
+            //((Label)pan.Controls["label4"]).Text = "수: " + benefit.ToString("##0.00") + "%";
             SetPanelColor();
         }
 

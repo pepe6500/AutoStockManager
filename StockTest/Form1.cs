@@ -2319,11 +2319,11 @@ namespace StockTest
                 stockCheckers[i].index += 1;
                 stockCheckers[i].pan.Name = "panel" + (stockCheckers[i].index + 1);
                 stockCheckers[i].ReloadPanel();
-
-                stockCheckers[i].pan.Controls["name"].Text = stockCheckers[i].name;
+                
+                stockCheckers[i].pan.Controls["name"].Text = (GetAccntIndex(stockCheckers[i].accnt_no) + 1) + " " + stockCheckers[i].name;
             }
             st.ReloadPanel();
-            st.pan.Controls["name"].Text = st.name;
+            st.pan.Controls["name"].Text = (GetAccntIndex(st.accnt_no) + 1) + " " + st.name;
         }
 
         private void button12_Click(object sender, EventArgs e)

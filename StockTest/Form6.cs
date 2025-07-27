@@ -13,7 +13,6 @@ namespace StockTest
     public partial class Form6 : Form
     {
         StockChecker stockChecker = null;
-        ConditionProcess conditionProcess = null;
         Form1 main;
         bool is_ChangeMain = false;
 
@@ -27,13 +26,6 @@ namespace StockTest
         {
             InitializeComponent();
             stockChecker = _stockChecker;
-            main = _main;
-        }
-
-        public Form6(Form1 _main, ConditionProcess _conditionProcess)
-        {
-            InitializeComponent();
-            conditionProcess = _conditionProcess;
             main = _main;
         }
 

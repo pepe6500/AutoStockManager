@@ -703,7 +703,6 @@ namespace StockTest
                 {
                     this.BeginInvoke(new Action(() =>
                     {
-                        Send_Log(logbox.Text.Length.ToString());
                         this.Text = "주식 프로그램 / " + CommUtil.BuildDate.Year + "." + CommUtil.BuildDate.Month + "." + CommUtil.BuildDate.Day + " /      " + DateTime.Now + ":" + DateTime.Now.Millisecond / 100;
                     }
                     ));
@@ -1745,6 +1744,7 @@ namespace StockTest
                 // 0번 계좌의 예수금만 표시
                 if (accno == l_accno_arr[0])
                 {
+                    Send_Log_Debug(accno + " 예수금표시: " + string.Format("{0:#,###}", possible_Amount));
                     ChangePossibleAmountText(possible_Amount);
                 }
             }
@@ -2070,11 +2070,11 @@ namespace StockTest
                 int errcode;
                 if (price > 0)
                 {
-                    errcode = axKHOpenAPI1.SendOrder("주식주문", scrnum, g_accnt_no, 1, code, count, price, "00", "");
+                    errcode = axKHOpenAPI1.SendOrder("주식주문", scrnum, current_accnt_no, 1, code, count, price, "00", "");
                 }
                 else
                 {
-                    errcode = axKHOpenAPI1.SendOrder("주식주문", scrnum, g_accnt_no, 1, code, count, 0, "03", "");
+                    errcode = axKHOpenAPI1.SendOrder("주식주문", scrnum, current_accnt_no, 1, code, count, 0, "03", "");
                 }
 
                 if (errcode == 0)

@@ -955,6 +955,7 @@ namespace StockTest
 
 
 
+                    ShowMemory();
                     await Task.Delay(60000);
                     //delay(200); // 첫 번째 무한루프 지연
                 }
@@ -1553,7 +1554,6 @@ namespace StockTest
         //데이터수신 이벤트
         private void axKHOpenAPI1_OnReceiveTrData(object sender, AxKHOpenAPILib._DKHOpenAPIEvents_OnReceiveTrDataEvent e)
         {
-            ShowMemory();
             if (saveLog)
             {
                 System.IO.File.AppendAllText(logpath.Replace(".txt", "_RealTime.txt"), Environment.NewLine + DateTime.Now);
@@ -1905,7 +1905,6 @@ namespace StockTest
             {
                 Send_Log("axKHOpenAPI1_OnReceiveRealData() [" + ex.Message + "]");
             }
-            ShowMemory();
         }
 
         public void ShowMemory()

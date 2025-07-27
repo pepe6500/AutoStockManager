@@ -943,6 +943,7 @@ namespace StockTest
                             }
 
                             CutLogBoxByLength();
+                            ShowMemory();
                         }
                         if (g_is_next == 0)
                         {
@@ -955,7 +956,6 @@ namespace StockTest
 
 
 
-                    ShowMemory();
                     await Task.Delay(60000);
                     //delay(200); // 첫 번째 무한루프 지연
                 }

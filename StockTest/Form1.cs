@@ -1004,10 +1004,10 @@ namespace StockTest
                         stockCheckers[i].realprice = i_buy_price;
                         stockCheckers[i].count = i_own_stock_cnt;
                         stockCheckers[i].SetCountColor();
-                        if (!test)
-                            stockCheckers[i].AddPriceData(now_price, "");
 
                         ((Label)stockCheckers[i].pan.Controls["label8"]).Text = "보유수량: " + i_own_stock_cnt;
+                        if (!test)
+                            stockCheckers[i].AddPriceData(now_price, "");
 
                         return i;
                     }
@@ -1018,170 +1018,168 @@ namespace StockTest
                 newStockChecker.all_high_price = now_price;
                 newStockChecker.price.price = now_price;
                 axKHOpenAPI1.SetInputValue("종목코드", i_jongmok_cd);
-                if (newStockChecker.index == 0)
+                
+                Panel newpan = ((Panel)this.Controls["flowLayoutPanel1"].Controls["panel1"]).Clone();
+                newStockChecker.pan = newpan;
+                newpan.Visible = true;
+                newpan.Controls.Add(((Label)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["targetprice_text"]).Clone());
+                newpan.Controls[newpan.Controls.Count - 1].Visible = true;
+                newpan.Controls.Add(((Label)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["label11"]).Clone());
+                newpan.Controls[newpan.Controls.Count - 1].Visible = true;
+                newpan.Controls.Add(((CheckBox)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["checkBox9"]).Clone());
+                newpan.Controls[newpan.Controls.Count - 1].Visible = true;
+                newpan.Controls.Add(((CheckBox)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["checkBox8"]).Clone());
+                newpan.Controls[newpan.Controls.Count - 1].Visible = true;
+                newpan.Controls.Add(((Label)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["label6"]).Clone());
+                newpan.Controls[newpan.Controls.Count - 1].Visible = true;
+                newpan.Controls.Add(((Label)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["targetcount"]).Clone());
+                newpan.Controls[newpan.Controls.Count - 1].Visible = true;
+                newpan.Controls.Add(((CheckBox)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["checkBox7"]).Clone());
+                newpan.Controls[newpan.Controls.Count - 1].Visible = true;
+                newpan.Controls.Add(((CheckBox)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["checkBox6"]).Clone());
+                newpan.Controls[newpan.Controls.Count - 1].Visible = true;
+                newpan.Controls.Add(((Label)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["label9"]).Clone());
+                newpan.Controls[newpan.Controls.Count - 1].Visible = true;
+                newpan.Controls.Add(((Label)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["label8"]).Clone());
+                newpan.Controls[newpan.Controls.Count - 1].Visible = true;
+                newpan.Controls.Add(((Label)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["label7"]).Clone());
+                newpan.Controls[newpan.Controls.Count - 1].Visible = true;
+                newpan.Controls.Add(((CheckBox)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["checkBox4"]).Clone());
+                newpan.Controls[newpan.Controls.Count - 1].Visible = true;
+                newpan.Controls.Add(((CheckBox)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["checkBox2"]).Clone());
+                newpan.Controls[newpan.Controls.Count - 1].Visible = true;
+                newpan.Controls.Add(((CheckBox)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["playing_cb"]).Clone());
+                newpan.Controls[newpan.Controls.Count - 1].Visible = true;
+                newpan.Controls.Add(((Label)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["label13"]).Clone());
+                newpan.Controls[newpan.Controls.Count - 1].Visible = true;
+                newpan.Controls.Add(((CheckBox)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["checkBox10"]).Clone());
+                newpan.Controls[newpan.Controls.Count - 1].Visible = true;
+                newpan.Controls.Add(((Button)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["button6"]).Clone());
+                newpan.Controls[newpan.Controls.Count - 1].Visible = true;
+                newpan.Controls.Add(((CheckBox)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["checkBox1"]).Clone());
+                newpan.Controls[newpan.Controls.Count - 1].Visible = true;
+                newpan.Controls.Add(((Label)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["label3"]).Clone());
+                newpan.Controls[newpan.Controls.Count - 1].Visible = true;
+                //newpan.Controls.Add(((Label)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["label5"]).Clone());
+                //newpan.Controls.Add(((Label)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["label4"]).Clone());
+                newpan.Controls.Add(((Label)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["name"]).Clone());
+                newpan.Controls[newpan.Controls.Count - 1].Visible = true;
+                newpan.Controls.Add(((CheckBox)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["highmesu"]).Clone());
+                newpan.Controls[newpan.Controls.Count - 1].Visible = true;
+                newpan.Controls.Add(((CheckBox)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["pricechangesound"]).Clone());
+                newpan.Controls[newpan.Controls.Count - 1].Visible = true;
+                newpan.Controls.Add(((Label)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["label15"]).Clone());
+                newpan.Controls[newpan.Controls.Count - 1].Visible = true;
+
+
+                ((CheckBox)newpan.Controls["playing_cb"]).Click += newStockChecker.EVT_ChangePlaying;
+                ((CheckBox)newpan.Controls["checkBox2"]).Click += newStockChecker.EVT_ChangeMedo;
+                ((CheckBox)newpan.Controls["checkBox4"]).Click += newStockChecker.EVT_ChangeMesu;
+                ((CheckBox)newpan.Controls["checkBox6"]).Click += newStockChecker.EVT_ChangeEndClear;
+                ((Label)newpan.Controls["targetprice_text"]).Click += newStockChecker.EVT_ChangeTargetPrice;
+                ((Label)newpan.Controls["targetcount"]).Click += newStockChecker.EVT_ChangeTargetCount;
+                ((Label)newpan.Controls["label7"]).Click += newStockChecker.EVT_ChangeRemainCount;
+                ((CheckBox)newpan.Controls["checkBox7"]).Click += newStockChecker.EVT_ChangeHighMedo;
+                ((CheckBox)newpan.Controls["checkBox8"]).Click += newStockChecker.EVT_ChangeCut;
+                ((CheckBox)newpan.Controls["checkBox9"]).Click += newStockChecker.EVT_ChangeRebuy;
+                ((Label)newpan.Controls["label6"]).Click += newStockChecker.EVT_ChangeHighMedoPrice;
+                ((Label)newpan.Controls["label11"]).Click += newStockChecker.EVT_ChangeCutPrice;
+                ((CheckBox)newpan.Controls["checkbox1"]).Click += newStockChecker.EVT_ChangeHaveEffect;
+                ((CheckBox)newpan.Controls["checkbox10"]).Click += newStockChecker.EVT_ChangeEndlimit;
+                ((Button)newpan.Controls["button6"]).Click += newStockChecker.EVT_Remove;
+                ((CheckBox)newpan.Controls["highmesu"]).Click += newStockChecker.EVT_ChangeHighMesu;
+                ((CheckBox)newpan.Controls["pricechangesound"]).Click += newStockChecker.EVT_ChangePriceChangeSound;
+
+
+                flowLayoutPanel1.Controls.Add(newpan);
+                newpan.Name = "panel" + (newStockChecker.index + 1);
+                /////////////////////////////
+                ////////panel 복제 복사//////
+                /////////////////////////////
+                int index = 0;
+
+
+                DataGridView newdg = new DataGridView();
+                newdg.Name = this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["dataGridView1"].Name;
+                newdg.Location = this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["dataGridView1"].Location;
+                newdg.Size = this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["dataGridView1"].Size;
+                newdg.ColumnCount = (((DataGridView)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["dataGridView1"]).ColumnCount);
+                newdg.RowHeadersVisible = false;
+                newdg.RowTemplate = (((DataGridView)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["dataGridView1"]).RowTemplate);
+                newdg.MultiSelect = (((DataGridView)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["dataGridView1"]).MultiSelect);
+                newdg.ColumnHeadersVisible = (((DataGridView)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["dataGridView1"]).ColumnHeadersVisible);
+                newdg.AllowUserToResizeColumns = (((DataGridView)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["dataGridView1"]).AllowUserToResizeColumns);
+                newdg.AllowUserToResizeRows = (((DataGridView)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["dataGridView1"]).AllowUserToResizeRows);
+                newdg.RowHeadersDefaultCellStyle = (((DataGridView)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["dataGridView1"]).RowHeadersDefaultCellStyle);
+                newdg.DefaultCellStyle = (((DataGridView)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["dataGridView1"]).DefaultCellStyle);
+                newdg.ReadOnly = (((DataGridView)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["dataGridView1"]).ReadOnly);
+                newdg.ScrollBars = (((DataGridView)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["dataGridView1"]).ScrollBars);
+                newdg.DefaultCellStyle.Alignment = (((DataGridView)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["dataGridView1"]).DefaultCellStyle.Alignment);
+                for (int i = 0; i < ((DataGridView)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["dataGridView1"]).Columns.Count; i++)
                 {
-                    newStockChecker.pan = (Panel)this.Controls["flowLayoutPanel1"].Controls["panel1"];
-                    newStockChecker.gridView = dataGridView1;
-                    ((Label)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["name"]).Text = (GetAccntIndex(i_accnt_no) + 1) + " " + newStockChecker.name;
-
-
-                    ((CheckBox)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["playing_cb"]).Click += newStockChecker.EVT_ChangePlaying;
-                    ((CheckBox)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["checkBox2"]).Click += newStockChecker.EVT_ChangeMedo;
-                    ((CheckBox)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["checkBox4"]).Click += newStockChecker.EVT_ChangeMesu;
-                    ((CheckBox)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["checkBox6"]).Click += newStockChecker.EVT_ChangeEndClear;
-                    ((Label)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["targetprice_text"]).Click += newStockChecker.EVT_ChangeTargetPrice;
-                    ((Label)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["targetcount"]).Click += newStockChecker.EVT_ChangeTargetCount;
-                    ((Label)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["label7"]).Click += newStockChecker.EVT_ChangeRemainCount;
-                    ((CheckBox)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["checkBox7"]).Click += newStockChecker.EVT_ChangeHighMedo;
-                    ((CheckBox)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["checkBox8"]).Click += newStockChecker.EVT_ChangeCut;
-                    ((CheckBox)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["checkBox9"]).Click += newStockChecker.EVT_ChangeRebuy;
-                    ((Label)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["panel3"].Controls["label19"]).Click += newStockChecker.EVT_ChangeMedoTick;
-                    ((Label)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["panel3"].Controls["label10"]).Click += newStockChecker.EVT_ChangeMesuTick;
-                    ((Button)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["panel3"].Controls["button4"]).Click += newStockChecker.EVT_ChangePer;
-                    ((Button)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["panel3"].Controls["button11"]).Click += newStockChecker.EVT_SetFirst;
-                    ((Label)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["label6"]).Click += newStockChecker.EVT_ChangeHighMedoPrice;
-                    ((Label)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["label11"]).Click += newStockChecker.EVT_ChangeCutPrice;
-                    ((CheckBox)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["checkbox1"]).Click += newStockChecker.EVT_ChangeHaveEffect;
-                    ((CheckBox)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["checkbox10"]).Click += newStockChecker.EVT_ChangeEndlimit;
-                    ((Button)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["button6"]).Click += newStockChecker.EVT_Remove;
-                    ((CheckBox)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["highmesu"]).Click += newStockChecker.EVT_ChangeHighMesu;
-                    ((CheckBox)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["pricechangesound"]).Click += newStockChecker.EVT_ChangePriceChangeSound;
-                    ((Button)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["panel3"].Controls["button3"]).Click += newStockChecker.AllMedo;
-                    ((Button)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["panel3"].Controls["button2"]).Click += newStockChecker.halfMedo;
-                    ((Label)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["panel3"].Controls["label12"]).Click += newStockChecker.EVT_ChangeMarkPrice;
+                    newdg.Columns[i].Name = (((DataGridView)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["dataGridView1"]).Columns[i].Name);
+                    newdg.Columns[i].HeaderText = (((DataGridView)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["dataGridView1"]).Columns[i].HeaderText);
+                    newdg.Columns[i].Width = (((DataGridView)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["dataGridView1"]).Columns[i].Width);
                 }
-                else
+                newdg.Rows.Clear();
+                newdg.Rows.Add(19);
+                newpan.Controls.Add(newdg);
+                newStockChecker.gridView = newdg;
+
+                Panel newpan1_1 = ((Panel)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["panel3"]).Clone();
+                newpan1_1.Visible = true;
+                index = 0;
+                newpan1_1.Controls.Add(((Label)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["panel3"].Controls[index++]).Clone());
+                newpan1_1.Controls[newpan1_1.Controls.Count - 1].Visible = true;
+                newpan1_1.Controls.Add(((Label)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["panel3"].Controls[index++]).Clone());
+                newpan1_1.Controls[newpan1_1.Controls.Count - 1].Visible = true;
+                newpan1_1.Controls.Add(((Label)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["panel3"].Controls[index++]).Clone());
+                newpan1_1.Controls[newpan1_1.Controls.Count - 1].Visible = true;
+                newpan1_1.Controls.Add(((Label)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["panel3"].Controls[index++]).Clone());
+                newpan1_1.Controls[newpan1_1.Controls.Count - 1].Visible = true;
+                newpan1_1.Controls.Add(((Button)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["panel3"].Controls[index++]).Clone());
+                newpan1_1.Controls[newpan1_1.Controls.Count - 1].Visible = true;
+                newpan1_1.Controls.Add(((Label)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["panel3"].Controls[index++]).Clone());
+                newpan1_1.Controls[newpan1_1.Controls.Count - 1].Visible = true;
+                newpan1_1.Controls.Add(((Button)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["panel3"].Controls[index++]).Clone());
+                newpan1_1.Controls[newpan1_1.Controls.Count - 1].Visible = true;
+                newpan1_1.Controls.Add(((Button)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["panel3"].Controls[index++]).Clone());
+                newpan1_1.Controls[newpan1_1.Controls.Count - 1].Visible = true;
+                newpan1_1.Controls.Add(((Button)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["panel3"].Controls[index++]).Clone());
+                newpan1_1.Controls[newpan1_1.Controls.Count - 1].Visible = true;
+                newpan1_1.Controls.Add(((Label)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["panel3"].Controls[index++]).Clone());
+                newpan1_1.Controls[newpan1_1.Controls.Count - 1].Visible = true;
+                newpan1_1.Controls.Add(((Label)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["panel3"].Controls[index++]).Clone());
+                newpan1_1.Controls[newpan1_1.Controls.Count - 1].Visible = true;
+
+                ((Label)newpan1_1.Controls["label19"]).Click += newStockChecker.EVT_ChangeMedoTick;
+                ((Label)newpan1_1.Controls["label17"]).Click += newStockChecker.EVT_ChangeMedoTick;
+                ((Label)newpan1_1.Controls["label18"]).Click += newStockChecker.EVT_ChangeMedoTick;
+                ((Label)newpan1_1.Controls["label10"]).Click += newStockChecker.EVT_ChangeMesuTick;
+                ((Label)newpan1_1.Controls["label20"]).Click += newStockChecker.EVT_ChangeMesuTick;
+                ((Label)newpan1_1.Controls["label21"]).Click += newStockChecker.EVT_ChangeMesuTick;
+                ((Button)newpan1_1.Controls["button4"]).Click += newStockChecker.EVT_ChangePer;
+                ((Button)newpan1_1.Controls["button11"]).Click += newStockChecker.EVT_SetFirst;
+                ((Button)newpan1_1.Controls["button3"]).Click += newStockChecker.AllMedo;
+                ((Button)newpan1_1.Controls["button2"]).Click += newStockChecker.halfMedo;
+                ((Label)newpan1_1.Controls["label12"]).Click += newStockChecker.EVT_ChangeMarkPrice;
+
+                for (int j = 0; j < newpan1_1.Controls.Count; j++)
                 {
-                    Panel newpan = ((Panel)this.Controls["flowLayoutPanel1"].Controls["panel1"]).Clone();
-                    newStockChecker.pan = newpan;
-
-
-
-                    newpan.Controls.Add(((Label)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["targetprice_text"]).Clone());
-                    newpan.Controls.Add(((Label)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["label11"]).Clone());
-                    newpan.Controls.Add(((CheckBox)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["checkBox9"]).Clone());
-                    newpan.Controls.Add(((CheckBox)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["checkBox8"]).Clone());
-                    newpan.Controls.Add(((Label)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["label6"]).Clone());
-                    newpan.Controls.Add(((Label)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["targetcount"]).Clone());
-                    newpan.Controls.Add(((CheckBox)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["checkBox7"]).Clone());
-                    newpan.Controls.Add(((CheckBox)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["checkBox6"]).Clone());
-                    newpan.Controls.Add(((Label)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["label9"]).Clone());
-                    newpan.Controls.Add(((Label)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["label8"]).Clone());
-                    newpan.Controls.Add(((Label)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["label7"]).Clone());
-                    newpan.Controls.Add(((CheckBox)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["checkBox4"]).Clone());
-                    newpan.Controls.Add(((CheckBox)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["checkBox2"]).Clone());
-                    newpan.Controls.Add(((CheckBox)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["playing_cb"]).Clone());
-                    newpan.Controls.Add(((Label)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["label13"]).Clone());
-                    newpan.Controls.Add(((CheckBox)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["checkBox10"]).Clone());
-                    newpan.Controls.Add(((Button)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["button6"]).Clone());
-                    newpan.Controls.Add(((CheckBox)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["checkBox1"]).Clone());
-                    newpan.Controls.Add(((Label)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["label3"]).Clone());
-                    //newpan.Controls.Add(((Label)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["label5"]).Clone());
-                    //newpan.Controls.Add(((Label)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["label4"]).Clone());
-                    newpan.Controls.Add(((Label)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["name"]).Clone());
-                    newpan.Controls.Add(((CheckBox)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["highmesu"]).Clone());
-                    newpan.Controls.Add(((CheckBox)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["pricechangesound"]).Clone());
-                    newpan.Controls.Add(((Label)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["label15"]).Clone());
-
-
-                    ((CheckBox)newpan.Controls["playing_cb"]).Click += newStockChecker.EVT_ChangePlaying;
-                    ((CheckBox)newpan.Controls["checkBox2"]).Click += newStockChecker.EVT_ChangeMedo;
-                    ((CheckBox)newpan.Controls["checkBox4"]).Click += newStockChecker.EVT_ChangeMesu;
-                    ((CheckBox)newpan.Controls["checkBox6"]).Click += newStockChecker.EVT_ChangeEndClear;
-                    ((Label)newpan.Controls["targetprice_text"]).Click += newStockChecker.EVT_ChangeTargetPrice;
-                    ((Label)newpan.Controls["targetcount"]).Click += newStockChecker.EVT_ChangeTargetCount;
-                    ((Label)newpan.Controls["label7"]).Click += newStockChecker.EVT_ChangeRemainCount;
-                    ((CheckBox)newpan.Controls["checkBox7"]).Click += newStockChecker.EVT_ChangeHighMedo;
-                    ((CheckBox)newpan.Controls["checkBox8"]).Click += newStockChecker.EVT_ChangeCut;
-                    ((CheckBox)newpan.Controls["checkBox9"]).Click += newStockChecker.EVT_ChangeRebuy;
-                    ((Label)newpan.Controls["label6"]).Click += newStockChecker.EVT_ChangeHighMedoPrice;
-                    ((Label)newpan.Controls["label11"]).Click += newStockChecker.EVT_ChangeCutPrice;
-                    ((CheckBox)newpan.Controls["checkbox1"]).Click += newStockChecker.EVT_ChangeHaveEffect;
-                    ((CheckBox)newpan.Controls["checkbox10"]).Click += newStockChecker.EVT_ChangeEndlimit;
-                    ((Button)newpan.Controls["button6"]).Click += newStockChecker.EVT_Remove;
-                    ((CheckBox)newpan.Controls["highmesu"]).Click += newStockChecker.EVT_ChangeHighMesu;
-                    ((CheckBox)newpan.Controls["pricechangesound"]).Click += newStockChecker.EVT_ChangePriceChangeSound;
-
-
-                    flowLayoutPanel1.Controls.Add(newpan);
-                    newpan.Name = "panel" + (newStockChecker.index + 1);
-                    /////////////////////////////
-                    ////////panel 복제 복사//////
-                    /////////////////////////////
-                    int index = 0;
-
-
-                    DataGridView newdg = new DataGridView();
-                    newdg.Name = this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["dataGridView1"].Name;
-                    newdg.Location = this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["dataGridView1"].Location;
-                    newdg.Size = this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["dataGridView1"].Size;
-                    newdg.ColumnCount = (((DataGridView)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["dataGridView1"]).ColumnCount);
-                    newdg.RowHeadersVisible = false;
-                    newdg.RowTemplate = (((DataGridView)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["dataGridView1"]).RowTemplate);
-                    newdg.MultiSelect = (((DataGridView)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["dataGridView1"]).MultiSelect);
-                    newdg.ColumnHeadersVisible = (((DataGridView)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["dataGridView1"]).ColumnHeadersVisible);
-                    newdg.AllowUserToResizeColumns = (((DataGridView)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["dataGridView1"]).AllowUserToResizeColumns);
-                    newdg.AllowUserToResizeRows = (((DataGridView)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["dataGridView1"]).AllowUserToResizeRows);
-                    newdg.RowHeadersDefaultCellStyle = (((DataGridView)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["dataGridView1"]).RowHeadersDefaultCellStyle);
-                    newdg.DefaultCellStyle = (((DataGridView)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["dataGridView1"]).DefaultCellStyle);
-                    newdg.ReadOnly = (((DataGridView)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["dataGridView1"]).ReadOnly);
-                    newdg.ScrollBars = (((DataGridView)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["dataGridView1"]).ScrollBars);
-                    newdg.DefaultCellStyle.Alignment = (((DataGridView)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["dataGridView1"]).DefaultCellStyle.Alignment);
-                    for (int i = 0; i < ((DataGridView)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["dataGridView1"]).Columns.Count; i++)
-                    {
-                        newdg.Columns[i].Name = (((DataGridView)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["dataGridView1"]).Columns[i].Name);
-                        newdg.Columns[i].HeaderText = (((DataGridView)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["dataGridView1"]).Columns[i].HeaderText);
-                        newdg.Columns[i].Width = (((DataGridView)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["dataGridView1"]).Columns[i].Width);
-                    }
-                    newdg.Rows.Clear();
-                    newdg.Rows.Add(19);
-                    newpan.Controls.Add(newdg);
-                    newStockChecker.gridView = newdg;
-
-                    Panel newpan1_1 = ((Panel)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["panel3"]).Clone();
-                    index = 0;
-
-                    newpan1_1.Controls.Add(((Label)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["panel3"].Controls[index++]).Clone());
-                    newpan1_1.Controls.Add(((Label)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["panel3"].Controls[index++]).Clone());
-                    newpan1_1.Controls.Add(((Label)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["panel3"].Controls[index++]).Clone());
-                    newpan1_1.Controls.Add(((Label)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["panel3"].Controls[index++]).Clone());
-                    newpan1_1.Controls.Add(((Button)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["panel3"].Controls[index++]).Clone());
-                    newpan1_1.Controls.Add(((Label)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["panel3"].Controls[index++]).Clone());
-                    newpan1_1.Controls.Add(((Button)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["panel3"].Controls[index++]).Clone());
-                    newpan1_1.Controls.Add(((Button)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["panel3"].Controls[index++]).Clone());
-                    newpan1_1.Controls.Add(((Button)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["panel3"].Controls[index++]).Clone());
-                    newpan1_1.Controls.Add(((Label)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["panel3"].Controls[index++]).Clone());
-                    newpan1_1.Controls.Add(((Label)this.Controls["flowLayoutPanel1"].Controls["panel1"].Controls["panel3"].Controls[index++]).Clone());
-
-                    ((Label)newpan1_1.Controls["label19"]).Click += newStockChecker.EVT_ChangeMedoTick;
-                    ((Label)newpan1_1.Controls["label17"]).Click += newStockChecker.EVT_ChangeMedoTick;
-                    ((Label)newpan1_1.Controls["label18"]).Click += newStockChecker.EVT_ChangeMedoTick;
-                    ((Label)newpan1_1.Controls["label10"]).Click += newStockChecker.EVT_ChangeMesuTick;
-                    ((Label)newpan1_1.Controls["label20"]).Click += newStockChecker.EVT_ChangeMesuTick;
-                    ((Label)newpan1_1.Controls["label21"]).Click += newStockChecker.EVT_ChangeMesuTick;
-                    ((Button)newpan1_1.Controls["button4"]).Click += newStockChecker.EVT_ChangePer;
-                    ((Button)newpan1_1.Controls["button11"]).Click += newStockChecker.EVT_SetFirst;
-                    ((Button)newpan1_1.Controls["button3"]).Click += newStockChecker.AllMedo;
-                    ((Button)newpan1_1.Controls["button2"]).Click += newStockChecker.halfMedo;
-                    ((Label)newpan1_1.Controls["label12"]).Click += newStockChecker.EVT_ChangeMarkPrice;
-
-                    for (int j = 0; j < newpan1_1.Controls.Count; j++)
-                    {
-                        newpan1_1.Controls[j].Parent = newpan1_1;
-                        //newpan1_1.Controls[j].BackColor = SystemColors.Control;
-                    }
-
-                    newpan.Controls.Add(newpan1_1);
-
-
-                    /////////////////////////////
-                    //////panel 복제 복사 끝/////
-                    /////////////////////////////
-
-
-                    newpan.Controls["name"].Text = (GetAccntIndex(i_accnt_no) + 1) + " " + newStockChecker.name;
-
+                    newpan1_1.Controls[j].Parent = newpan1_1;
+                    //newpan1_1.Controls[j].BackColor = SystemColors.Control;
                 }
+
+                newpan.Controls.Add(newpan1_1);
+
+
+                /////////////////////////////
+                //////panel 복제 복사 끝/////
+                /////////////////////////////
+
+
+                newpan.Controls["name"].Text = (GetAccntIndex(i_accnt_no) + 1) + " " + newStockChecker.name;
+
                 m_threadrealdata(i_jongmok_cd);
                 //Task.Factory.StartNew(new Action<object>(m_threadrealdata), i_jongmok_cd); ; // 스레드 생성
                 newStockChecker.ReloadPanel();

@@ -2717,6 +2717,7 @@ namespace StockTest
 
         public StockChecker(string _code, string _name, string _accnt_no, int _count, Form1 form1)
         {
+            _speechSynthesizer.Rate = 2;
             code = _code;
             name = _name;
             accnt_no = _accnt_no;

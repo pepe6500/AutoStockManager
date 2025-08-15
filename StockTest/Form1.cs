@@ -3719,6 +3719,11 @@ namespace StockTest
                         main.Send_Log(accnt_no + " " + name + " 손절가 도달");
                         state = StockState.none;
                         main.Medo(name, accnt_no, main.get_scr_no(), code, count);
+
+                        // 손절 발생 시 체크 해제 및 종목칸 제거
+                        ((CheckBox)pan.Controls["checkBox8"]).Checked = false;
+                        EVT_Remove(null, null);
+
                         ReloadPanel();
                         ReloadHoga();
                         SetPanelColor();

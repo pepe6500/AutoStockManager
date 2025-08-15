@@ -139,6 +139,7 @@ namespace StockTest
         public int lastDay;
 
         public int[] possible_Amount = null;
+        private int initial_possible_Amount = -1;
 
         /// <summary>
         /// 고매도가 실행중인지
@@ -1744,6 +1745,10 @@ namespace StockTest
                 // 0번 계좌의 예수금만 표시
                 if (accno == l_accno_arr[0])
                 {
+                    if (initial_possible_Amount == -1)
+                    {
+                        initial_possible_Amount = possible_Amount;
+                    }
                     Send_Log_Debug(accno + " 예수금표시: " + string.Format("{0:#,###}", possible_Amount));
                     ChangePossibleAmountText(possible_Amount);
                 }
@@ -1752,7 +1757,21 @@ namespace StockTest
 
         private void ChangePossibleAmountText(int possible_Amount)
         {
-            label14.Text = "예수금: " + string.Format("{0:#,###}", possible_Amount);
+            int change = possible_Amount - initial_possible_Amount;
+            string changeText;
+            if (change == 0)
+            {
+                changeText = "0";
+            }
+            else if (change > 0)
+            {
+                changeText = string.Format("+{0:#,###}", change);
+            }
+            else
+            {
+                changeText = string.Format("{0:#,###}", change);
+            }
+            label14.Text = "예수금: " + string.Format("{0:#,###}", possible_Amount) + " (" + changeText + ")";
         }
 
         private void axKHOpenAPI1_OnReceiveMsg(object sender, AxKHOpenAPILib._DKHOpenAPIEvents_OnReceiveMsgEvent e)

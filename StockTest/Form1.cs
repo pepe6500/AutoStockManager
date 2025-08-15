@@ -3721,13 +3721,8 @@ namespace StockTest
                         main.Medo(name, accnt_no, main.get_scr_no(), code, count);
 
                         // 손절 발생 시 체크 해제 및 종목칸 제거
-                        ((CheckBox)pan.Controls["checkBox8"]).Checked = false;
+                        this.is_cut = false;
                         EVT_Remove(null, null);
-
-                        ReloadPanel();
-                        ReloadHoga();
-                        SetPanelColor();
-                        ShowState();
                         return;
                     }
                 }

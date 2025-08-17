@@ -331,6 +331,9 @@ namespace StockTest
                     //xmlData.SetData(stockCheckers[i].name + ".is_repeat", stockCheckers[i].is_repeat.ToString());
                     //xmlData.SetData(stockCheckers[i].name + ".low_price", stockCheckers[i].low_price.ToString());
                     //xmlData.SetData(stockCheckers[i].name + ".high_price", stockCheckers[i].high_price.ToString());
+
+                    xmlData.SetData(keyString + ".isFixedMarkPrice", stockCheckers[i].isFixedMarkPrice.ToString());
+                    xmlData.SetData(keyString + ".markPrice", stockCheckers[i].markPrice.price.ToString());
                 }
 
                 for (int i = 0; i < soundSettings.Count; i++)
@@ -1249,6 +1252,11 @@ namespace StockTest
                         newStockChecker.is_price_change_sound = bool.Parse(xmlData.Find(keyString + ".is_price_change_sound").value.Trim());
                         newStockChecker.targetCount = int.Parse(xmlData.Find(keyString + ".targetCount").value.Trim());
                         newStockChecker.targetisprice = bool.Parse(xmlData.Find(keyString + ".targetisprice").value.Trim());
+                        newStockChecker.isFixedMarkPrice = bool.Parse(xmlData.Find(keyString + ".isFixedMarkPrice").value.Trim());
+                        if (newStockChecker.isFixedMarkPrice)
+                        {
+                            newStockChecker.markPrice.price = int.Parse(xmlData.Find(keyString + ".markPrice").value.Trim());
+                        }
                         //newStockChecker.is_repeat = bool.Parse(xmlData.Find(i_jongmok_nm + ".is_repeat").value.Trim());
                         //newStockChecker.low_price = int.Parse(xmlData.Find(i_jongmok_nm + ".low_price").value.Trim());
                         //newStockChecker.high_price = int.Parse(xmlData.Find(i_jongmok_nm + ".high_price").value.Trim());
@@ -2616,6 +2624,7 @@ namespace StockTest
         public StockState state = StockState.none;       //현재상태
         public int realprice;                   //매입가
         public PriceData markPrice = new PriceData();
+        public bool isFixedMarkPrice = false;
         public float sell_start = 1;            //매도하기 위한 수익(시작가)
         public float sell_end = 10;             //매도하기 위한 수익(종료가)
         public int sell_kind = 1;               //매도 종류
@@ -2748,7 +2757,10 @@ namespace StockTest
         {
             main.Send_Log(name + " 실행");
             state = StockState.none;
-            markPrice.price = price.price;
+            if (isFixedMarkPrice == false)
+            {
+                markPrice.price = price.price;
+            }
             if (targetisprice)
                 targetCount = (targetPrice / markPrice.price);
             else
@@ -2883,10 +2895,11 @@ namespace StockTest
 
         public void EVT_ChangeMarkPrice(object sender, EventArgs e)
         {
-            Action<int> action = (a) =>
+            Action<int, bool> action = (a, b) =>
             {
                 markPrice.price = a;
                 highmesu_markprice = a;
+                isFixedMarkPrice = b;
                 ((Label)pan.Controls["label15"]).Visible = (is_sell && is_highmesu);
                 ((Label)pan.Controls["label15"]).Text = "상승기준: " + string.Format("{0:#,###}", highmesu_markprice);
                 main.Send_Log(accnt_no + " " + name + " 기준가" + a + "원 변경");
@@ -2894,7 +2907,10 @@ namespace StockTest
                 SetCounts();
                 ReloadHoga();
             };
-            main.CallValueWindowInt(name + " : 기준가 설정", action);
+
+            FormChangeMarkPrice formChangeMarkPrice = new FormChangeMarkPrice(name, isFixedMarkPrice, action);
+            formChangeMarkPrice.Name = name;
+            formChangeMarkPrice.ShowDialog();
         }
 
         public void EVT_ChangeRemainCount(object sender, EventArgs e)

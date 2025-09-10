@@ -25,6 +25,8 @@ namespace StockTest
             textBox6.Text = stockChecker.buy_start.ToString("##0.0");
             textBox5.Text = stockChecker.buy_end.ToString("##0.0");
             textBox4.Text = stockChecker.buy_per.ToString("##0.00");
+            textBox7.Text = stockChecker.buy_per_count.ToString("##0.00");
+            textBox8.Text = stockChecker.sell_per_count.ToString("##0.00");
             this.KeyDown += TextBoxKeyDown;
             this.textBox1.KeyDown += TextBoxKeyDown;
             this.textBox2.KeyDown += TextBoxKeyDown;
@@ -32,6 +34,8 @@ namespace StockTest
             this.textBox4.KeyDown += TextBoxKeyDown;
             this.textBox5.KeyDown += TextBoxKeyDown;
             this.textBox6.KeyDown += TextBoxKeyDown;
+            this.textBox7.KeyDown += TextBoxKeyDown;
+            this.textBox8.KeyDown += TextBoxKeyDown;
         }
 
         void TextBoxKeyDown(object sender, KeyEventArgs e)
@@ -128,9 +132,11 @@ namespace StockTest
             stockChecker.sell_start = float.Parse(textBox1.Text);
             stockChecker.sell_end = float.Parse(textBox2.Text);
             stockChecker.sell_per = float.Parse(textBox3.Text);
+            stockChecker.sell_per_count = float.Parse(textBox8.Text);
             stockChecker.buy_start = float.Parse(textBox6.Text);
             stockChecker.buy_end = float.Parse(textBox5.Text);
             stockChecker.buy_per = float.Parse(textBox4.Text);
+            stockChecker.buy_per_count = float.Parse(textBox7.Text);
             stockChecker.SetCounts();
             main.Send_Log(stockChecker.name + " 비중변경");
             Close();
@@ -139,6 +145,30 @@ namespace StockTest
         private void button2_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void textBox7_TextChanged(object sender, EventArgs e)
+        {
+            Action<float, bool> temp = (a, b) =>
+            {
+                if (b)
+                {
+                    ((TextBox)sender).Text = a.ToString("##0.00");
+                }
+            };
+            main.CallValueWindowFloat("매수 호가당개수", temp);
+        }
+
+        private void textBox8_TextChanged(object sender, EventArgs e)
+        {
+            Action<float, bool> temp = (a, b) =>
+            {
+                if (b)
+                {
+                    ((TextBox)sender).Text = a.ToString("##0.00");
+                }
+            };
+            main.CallValueWindowFloat("매도 호가당개수", temp);
         }
     }
 }

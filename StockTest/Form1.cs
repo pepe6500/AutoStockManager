@@ -107,7 +107,11 @@ namespace StockTest
         public int buy_condition = 3;        //가격이 떨어진 후 매수할 조건(올라간 틱)
 
         public float sell_per = 100;
+        public float sell_per_count = 1;
+        public bool use_count_for_sell = false;
         public float buy_per = 100;
+        public float buy_per_count = 1;
+        public bool use_count_for_buy = false;
         public float highbuy_start = 1;
         public float highbuy_end = 10;
         public float highbuy_per = 100;
@@ -318,9 +322,13 @@ namespace StockTest
                     xmlData.SetData(keyString + ".sell_start", stockCheckers[i].sell_start.ToString());
                     xmlData.SetData(keyString + ".sell_end", stockCheckers[i].sell_end.ToString());
                     xmlData.SetData(keyString + ".sell_per", stockCheckers[i].sell_per.ToString());
+                    xmlData.SetData(keyString + ".sell_per_count", stockCheckers[i].sell_per_count.ToString());
+                    xmlData.SetData(keyString + ".use_count_for_sell", stockCheckers[i].use_count_for_sell.ToString());
                     xmlData.SetData(keyString + ".buy_start", stockCheckers[i].buy_start.ToString());
                     xmlData.SetData(keyString + ".buy_end", stockCheckers[i].buy_end.ToString());
                     xmlData.SetData(keyString + ".buy_per", stockCheckers[i].buy_per.ToString());
+                    xmlData.SetData(keyString + ".buy_per_count", stockCheckers[i].buy_per_count.ToString());
+                    xmlData.SetData(keyString + ".use_count_for_buy", stockCheckers[i].use_count_for_buy.ToString());
                     xmlData.SetData(keyString + ".highbuy_start", stockCheckers[i].highbuy_start.ToString());
                     xmlData.SetData(keyString + ".highbuy_end", stockCheckers[i].highbuy_end.ToString());
                     xmlData.SetData(keyString + ".highbuy_per", stockCheckers[i].highbuy_per.ToString());
@@ -1243,9 +1251,13 @@ namespace StockTest
                         newStockChecker.sell_start = float.Parse(xmlData.Find(keyString + ".sell_start").value.Trim());
                         newStockChecker.sell_end = int.Parse(xmlData.Find(keyString + ".sell_end").value.Trim());
                         newStockChecker.sell_per = float.Parse(xmlData.Find(keyString + ".sell_per").value.Trim());
+                        newStockChecker.sell_per_count = int.Parse(xmlData.Find(keyString + ".sell_per_count").value.Trim());
+                        newStockChecker.use_count_for_sell = bool.Parse(xmlData.Find(keyString + ".use_count_for_sell").value.Trim());
                         newStockChecker.buy_start = float.Parse(xmlData.Find(keyString + ".buy_start").value.Trim());
                         newStockChecker.buy_end = int.Parse(xmlData.Find(keyString + ".buy_end").value.Trim());
                         newStockChecker.buy_per = float.Parse(xmlData.Find(keyString + ".buy_per").value.Trim());
+                        newStockChecker.buy_per_count = int.Parse(xmlData.Find(keyString + ".buy_per_count").value.Trim());
+                        newStockChecker.use_count_for_buy = bool.Parse(xmlData.Find(keyString + ".use_count_for_buy").value.Trim());
                         newStockChecker.highbuy_start = float.Parse(xmlData.Find(keyString + ".highbuy_start").value.Trim());
                         newStockChecker.highbuy_end = float.Parse(xmlData.Find(keyString + ".highbuy_end").value.Trim());
                         newStockChecker.highbuy_per = float.Parse(xmlData.Find(keyString + ".highbuy_per").value.Trim());
@@ -2534,6 +2546,32 @@ namespace StockTest
             return result;
         }
 
+        public static int GetTickDif(string code, string name, int price1, int price2)
+        {
+            // 두 가격이 같으면 0을 반환합니다.
+            if (price1 == price2)
+            {
+                return 0;
+            }
+
+            // 가격 상승/하락 방향을 결정합니다. (상승: 1, 하락: -1)
+            int direction = Math.Sign(price2 - price1);
+
+            int startPrice = Math.Min(price1, price2);
+            int endPrice = Math.Max(price1, price2);
+            int tickCount = 0;
+
+            // 시작 가격에서 목표 가격까지 호가 단위를 더해가며 틱 수를 계산합니다.
+            while (startPrice < endPrice)
+            {
+                startPrice += GetPriceUnit(startPrice, GetConditionTransactionTypeByCode(code, name));
+                tickCount++;
+            }
+
+            // 계산된 틱 수에 방향(부호)을 곱하여 반환합니다.
+            return tickCount * direction;
+        }
+
         public string GetMainAccountNum()
         {
             return g_accnt_no;
@@ -2632,12 +2670,16 @@ namespace StockTest
         public float buy_end = 10;              //매수하기 위한 가격(종료가)
         public int buy_kind = 1;                //매수 종류
         public float buy_count = 100;           //매수시 주문할 개수 (총 비중)
-        public float buy_per = 100;             //매수시 주문할 개수 (변동수량)
+        public float buy_per = 100;             //매수시 주문할 목표가의 비율 개수 (변동수량)
+        public float buy_per_count = 1;           //매수시 주문할 호가당 개수 (변동수량)
+        public bool use_count_for_buy = false;  //매수시 주문할 호가당 개수를 사용할지 (true = 목표가 비율, false 호가당 개수)
+        public float sell_per = 100;            //매도시 주문할 목표가의 비율 개수 (변동수량)
         public float sell_count = 100;          //매도시 주문할 개수 (총 비중)
-        public float sell_per = 100;          //매도시 주문할 개수 (변동수량)
+        public float sell_per_count = 1;        //매수시 주문할 호가당 개수 (변동수량)
+        public bool use_count_for_sell = false; //매수시 주문할 호가당 개수를 사용할지 (true = 목표가 비율, false 호가당 개수)
         public int count;                       //보유 개수
-        public bool is_sell = false;             //매도를 할 것인가
-        public bool is_buy = false;              //매수를 할 것인가
+        public bool is_sell = false;            //매도를 할 것인가
+        public bool is_buy = false;             //매수를 할 것인가
         public bool is_selltime = false;
         public bool is_buytime = false;
         public PriceData price = new PriceData(); //종목 가격 데이터
@@ -3160,10 +3202,10 @@ namespace StockTest
                 priceKind = 6;
             }
             ((Label)pan.Controls["panel3"].Controls["label17"]).Text = sell_conditions[priceKind] + " " + (int)sell_start + "~" + (int)sell_end;
-            ((Label)pan.Controls["panel3"].Controls["label18"]).Text = sell_per.ToString();
+            ((Label)pan.Controls["panel3"].Controls["label18"]).Text = use_count_for_sell ? sell_per_count.ToString() + "개" : sell_per.ToString() + "%";
 
             ((Label)pan.Controls["panel3"].Controls["label21"]).Text = buy_conditions[priceKind] + " " + (int)buy_start + "~" + (int)buy_end;
-            ((Label)pan.Controls["panel3"].Controls["label20"]).Text = buy_per.ToString();
+            ((Label)pan.Controls["panel3"].Controls["label20"]).Text = use_count_for_buy ? buy_per_count.ToString() + "개" : buy_per.ToString() + "%";
         }
 
         public void Medo(string time, int sellcount = -1)
@@ -3182,23 +3224,19 @@ namespace StockTest
                     total = DateTime.Now.ToString("HH:mm:ss") + " ";
                 //now_sell_count += (Math.Min(markPrice.price + (markPrice.price * sell_end / 100), high_price) - last_sell_price) / markPrice.price * sell_count;
                 if(sellcount == -1)
-                    totalcount = now_sell_count + (Math.Min(price.price, (sell_end + 100) * markPrice.price / 100f) - Math.Max(markPrice.price * (100 + sell_start) / 100f, real_sell_price)) / markPrice.price * 100f * sell_count;
+                {
+                    if (use_count_for_sell == true)
+                    {
+                        int tickDif = GetTickDif(code, name, (int)Math.Max(markPrice.price * (100 + sell_start) / 100f, real_sell_price), (int)Math.Min(price.price, (sell_end + 100) * markPrice.price / 100f));
+                        totalcount = now_sell_count + tickDif * sell_per_count;
+                    }
+                    else
+                    {
+                        totalcount = now_sell_count + (Math.Min(price.price, (sell_end + 100) * markPrice.price / 100f) - Math.Max(markPrice.price * (100 + sell_start) / 100f, real_sell_price)) / markPrice.price * 100f * sell_count;
+                    }
+                }
                 else
                     totalcount = sellcount;
-
-                if (totalcount < 0 || totalcount > (sell_end - sell_start) * sell_count)
-                {
-                    main.Send_Log_Debug("accnt_no : " + accnt_no);
-                    main.Send_Log_Debug("name : " + name);
-                    main.Send_Log_Debug("now_sell_count : " + now_sell_count);
-                    main.Send_Log_Debug("totalcount : " + totalcount);
-                    main.Send_Log_Debug("price.price : " + price.price);
-                    main.Send_Log_Debug("markPrice.price : " + markPrice.price);
-                    main.Send_Log_Debug("sell_start : " + sell_start);
-                    main.Send_Log_Debug("sell_end : " + sell_end);
-                    main.Send_Log_Debug("real_sell_price : " + real_sell_price);
-                    main.Send_Log_Debug("sell_count : " + sell_count);
-                }
 
 
 
@@ -3323,19 +3361,15 @@ namespace StockTest
                 else
                     total = DateTime.Now.ToString("HH:mm:ss") + " ";
                 //now_buy_count += (last_buy_price - Math.Max(markPrice.price - (markPrice.price * buy_end / 100), low_price)) / markPrice.price * buy_count;
-                totalcount = now_buy_count + (Math.Min(markPrice.price * (100 - buy_start) / 100f, real_buy_price) - Math.Max(price.price, (100 - buy_end) * markPrice.price / 100f)) / markPrice.price * 100f * buy_count;
-                if (totalcount < 0)
+
+                if (use_count_for_buy == true)
                 {
-                    main.Send_Log_Debug("accnt_no : " + accnt_no);
-                    main.Send_Log_Debug("name : " + name);
-                    main.Send_Log_Debug("now_buy_count : " + now_buy_count);
-                    main.Send_Log_Debug("totalcount : " + totalcount);
-                    main.Send_Log_Debug("price.price : " + price.price);
-                    main.Send_Log_Debug("markPrice.price : " + markPrice.price);
-                    main.Send_Log_Debug("buy_start : " + buy_start);
-                    main.Send_Log_Debug("buy_end : " + buy_end);
-                    main.Send_Log_Debug("real_buy_price : " + real_buy_price);
-                    main.Send_Log_Debug("buy_count : " + buy_count);
+                    int tickDif = GetTickDif(code, name, (int)Math.Max(price.price, (100 - buy_end) * markPrice.price / 100f), (int)Math.Min(markPrice.price * (100 - buy_start) / 100f, real_buy_price));
+                    totalcount = now_buy_count + tickDif * buy_per_count;
+                }
+                else
+                {
+                    totalcount = now_buy_count + (Math.Min(markPrice.price * (100 - buy_start) / 100f, real_buy_price) - Math.Max(price.price, (100 - buy_end) * markPrice.price / 100f)) / markPrice.price * 100f * buy_count;
                 }
                 state = StockState.buying;
 
@@ -3768,7 +3802,8 @@ namespace StockTest
                             //state = StockState.sellwait;
                             SetNowState(StockState.sellwait);
 
-                            ((Label)pan.Controls["label9"]).Text = "매도될수량: " + (now_sell_count + (Math.Min(PriceMoveTick(high_price, -sell_conditions[priceKind]), (sell_end + 100) * markPrice.price / 100f) - Math.Max(markPrice.price * (100 + sell_start) / 100f, real_sell_price)) / markPrice.price * 100f * sell_count).ToString("##0.0");
+                            int tickDif = GetTickDif(code, name, (int)Math.Max(markPrice.price * (100 + sell_start) / 100f, real_sell_price), (int)Math.Min(PriceMoveTick(high_price, -sell_conditions[priceKind]), (sell_end + 100) * markPrice.price / 100f));
+                            ((Label)pan.Controls["label9"]).Text = "매도될수량: " + (use_count_for_sell ? now_sell_count + tickDif * sell_per_count : (now_sell_count + (Math.Min(PriceMoveTick(high_price, -sell_conditions[priceKind]), (sell_end + 100) * markPrice.price / 100f) - Math.Max(markPrice.price * (100 + sell_start) / 100f, real_sell_price)) / markPrice.price * 100f * sell_count)).ToString("##0.0");
                             ((Label)pan.Controls["label9"]).ForeColor = Color.CornflowerBlue;
                         }
 
@@ -3783,7 +3818,8 @@ namespace StockTest
                             //state = StockState.buywait;
                             SetNowState(StockState.buywait);
 
-                            ((Label)pan.Controls["label9"]).Text = "매수될수량: " + (now_buy_count + (Math.Min(markPrice.price * (100 - buy_start) / 100f, real_buy_price) - Math.Max(PriceMoveTick(low_price, buy_conditions[priceKind]), (100 - buy_end) * markPrice.price / 100f)) / markPrice.price * 100f * buy_count).ToString("##0.0");
+                            int tickDif = GetTickDif(code, name, (int)Math.Max(PriceMoveTick(low_price, buy_conditions[priceKind]), (100 - buy_end) * markPrice.price / 100f), (int)Math.Min(markPrice.price * (100 - buy_start) / 100f, real_buy_price));
+                            ((Label)pan.Controls["label9"]).Text = "매수될수량: " + (use_count_for_buy ? now_buy_count + tickDif * buy_per_count : now_buy_count + (Math.Min(markPrice.price * (100 - buy_start) / 100f, real_buy_price) - Math.Max(PriceMoveTick(low_price, buy_conditions[priceKind]), (100 - buy_end) * markPrice.price / 100f)) / markPrice.price * 100f * buy_count).ToString("##0.0");
                             ((Label)pan.Controls["label9"]).ForeColor = Color.OrangeRed;
                         }
                     }
@@ -3823,7 +3859,6 @@ namespace StockTest
                         {
                             high_price = price.price;
                             sell_price = GetSellPrice();
-
                             ((Label)pan.Controls["label9"]).Text = "매도될수량: " + (now_sell_count + (Math.Min(PriceMoveTick(high_price, -sell_conditions[priceKind]), (sell_end + 100) * markPrice.price / 100f) - Math.Max(markPrice.price * (100 + sell_start) / 100f, real_sell_price)) / markPrice.price * 100f * sell_count).ToString("##0.0");
                             ((Label)pan.Controls["label9"]).ForeColor = Color.CornflowerBlue;
                         }
@@ -3873,7 +3908,7 @@ namespace StockTest
                             low_price = price.price;
                             buy_price = GetBuyPrice();
 
-                            ((Label)pan.Controls["label9"]).Text = "매수될수량: " + (now_buy_count + (Math.Min(markPrice.price * (100 - buy_start) / 100f, real_buy_price) - Math.Max(PriceMoveTick(low_price, buy_conditions[priceKind]), (100 - buy_end) * markPrice.price / 100f)) / markPrice.price * 100f * buy_count).ToString("##0.0");
+                            ((Label)pan.Controls["label9"]).Text = "매수될수량: " + (use_count_for_buy ? (GetTickDif(code, name, low_price, markPrice.price) * buy_per_count).ToString("##0.0") : (now_buy_count + (Math.Min(markPrice.price * (100 - buy_start) / 100f, real_buy_price) - Math.Max(PriceMoveTick(low_price, buy_conditions[priceKind]), (100 - buy_end) * markPrice.price / 100f)) / markPrice.price * 100f * buy_count).ToString("##0.0"));
                             ((Label)pan.Controls["label9"]).ForeColor = Color.OrangeRed;
                         }
                         if (price.price >= buy_price)
@@ -4152,13 +4187,13 @@ namespace StockTest
                 }
                 else if (prices[i] < (100 - buy_start) * markPrice.price / 100f && prices[i] > (100 - buy_end) * markPrice.price / 100f)
                 {
-                    gridView.Rows[i].Cells[2].Value = (int)Math.Ceiling((((100 - buy_start) * markPrice.price / 100f - prices[i]) / markPrice.price * 100f * buy_count));
+                    gridView.Rows[i].Cells[2].Value = use_count_for_buy ? GetTickDif(code, name, prices[i],(int)((100 - buy_start) * markPrice.price / 100f)) * buy_per_count : (int)Math.Ceiling((((100 - buy_start) * markPrice.price / 100f - prices[i]) / markPrice.price * 100f * buy_count));
                     gridView.Rows[i].Cells[2].Style.BackColor = SystemColors.Window;
                     gridView.Rows[i].Cells[2].Style.SelectionBackColor = SystemColors.Window;
                 }
                 else if ((prices[i] > (100 + sell_start) * markPrice.price / 100f && prices[i] < (100 + sell_end) * markPrice.price / 100f) && !is_highmesu)
                 {
-                    gridView.Rows[i].Cells[2].Value = (int)Math.Ceiling(((prices[i] - (100 + sell_start) * markPrice.price / 100f) / markPrice.price * 100f * sell_count));
+                    gridView.Rows[i].Cells[2].Value = use_count_for_sell ? GetTickDif(code, name, (int)((100 + sell_start) * markPrice.price / 100f), prices[i]) * sell_per_count : (int)Math.Ceiling(((prices[i] - (100 + sell_start) * markPrice.price / 100f) / markPrice.price * 100f * sell_count));
                     gridView.Rows[i].Cells[2].Style.BackColor = SystemColors.Window;
                     gridView.Rows[i].Cells[2].Style.SelectionBackColor = SystemColors.Window;
                 }
@@ -4208,7 +4243,6 @@ namespace StockTest
 
         public int PriceMoveTick(int price, int tick)
         {
-
             price = Form1.PriceMoveTick(code, name, price, tick);
 
             CheckPriceKind();

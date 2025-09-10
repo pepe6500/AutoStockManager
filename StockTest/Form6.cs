@@ -62,6 +62,8 @@ namespace StockTest
             this.textBox7.KeyDown += TextBoxKeyDown;
             this.textBox8.KeyDown += TextBoxKeyDown;
             this.textBox9.KeyDown += TextBoxKeyDown;
+            this.textBox11.KeyDown += TextBoxKeyDown;
+            this.textBox12.KeyDown += TextBoxKeyDown;
             this.button1.KeyDown += TextBoxKeyDown;
             this.button2.KeyDown += TextBoxKeyDown;
             checkBox1.Enabled = !is_ChangeMain;
@@ -79,6 +81,8 @@ namespace StockTest
                     textBox9.Text = stockChecker.highbuy_start.ToString("##0.0");
                     textBox8.Text = stockChecker.highbuy_end.ToString("##0.0");
                     textBox7.Text = stockChecker.highbuy_per.ToString("##0.00");
+                    textBox11.Text = stockChecker.sell_per_count.ToString("##0.00");
+                    textBox12.Text = stockChecker.buy_per_count.ToString("##0.00");
                     textBox1.Click += textBox1_TextChanged;
                     textBox2.Click += textBox2_TextChanged;
                     textBox3.Click += textBox3_TextChanged;
@@ -88,7 +92,11 @@ namespace StockTest
                     textBox7.Click += textBox7_TextChanged;
                     textBox8.Click += textBox8_TextChanged;
                     textBox9.Click += textBox9_TextChanged;
+                    textBox11.Click += textBox11_TextChanged;
+                    textBox12.Click += textBox12_TextChanged;
                     checkBox1.Checked = stockChecker.is_fixed;
+                    checkBox3.Checked = stockChecker.use_count_for_sell;
+                    checkBox4.Checked = stockChecker.use_count_for_buy;
                     ((DataGridViewComboBoxColumn)dataGridView1.Columns[2]).Items.Add("현재가");
                     ((DataGridViewComboBoxColumn)dataGridView1.Columns[2]).Items.Add("시장가");
                     ((DataGridViewComboBoxColumn)dataGridView1.Columns[4]).Items.Add("현재가");
@@ -159,6 +167,8 @@ namespace StockTest
                     textBox7.Click += textBox7_TextChanged;
                     textBox8.Click += textBox8_TextChanged;
                     textBox9.Click += textBox9_TextChanged;
+                    textBox11.Click += textBox11_TextChanged;
+                    textBox12.Click += textBox12_TextChanged;
                     ((DataGridViewComboBoxColumn)dataGridView1.Columns[2]).Items.Add("현재가");
                     ((DataGridViewComboBoxColumn)dataGridView1.Columns[2]).Items.Add("시장가");
                     ((DataGridViewComboBoxColumn)dataGridView1.Columns[4]).Items.Add("현재가");
@@ -195,6 +205,10 @@ namespace StockTest
                 textBox9.Text = main.highbuy_start.ToString("##0.0");
                 textBox8.Text = main.highbuy_end.ToString("##0.0");
                 textBox7.Text = main.highbuy_per.ToString("##0.00");
+                textBox11.Text = main.sell_per_count.ToString("##0.00");
+                textBox12.Text = main.buy_per_count.ToString("##0.00");
+                checkBox3.Checked = main.use_count_for_sell;
+                checkBox4.Checked = main.use_count_for_buy;
                 textBox1.Click += textBox1_TextChanged;
                 textBox2.Click += textBox2_TextChanged;
                 textBox3.Click += textBox3_TextChanged;
@@ -204,6 +218,8 @@ namespace StockTest
                 textBox7.Click += textBox7_TextChanged;
                 textBox8.Click += textBox8_TextChanged;
                 textBox9.Click += textBox9_TextChanged;
+                textBox11.Click += textBox11_TextChanged;
+                textBox12.Click += textBox12_TextChanged;
                 ((DataGridViewComboBoxColumn)dataGridView1.Columns[2]).Items.Add("현재가");
                 ((DataGridViewComboBoxColumn)dataGridView1.Columns[2]).Items.Add("시장가");
                 ((DataGridViewComboBoxColumn)dataGridView1.Columns[4]).Items.Add("현재가");
@@ -363,7 +379,7 @@ namespace StockTest
             main.CallValueWindowFloat("저매수", temp);
         }
 
-        private void textBox8_TextChanged(object sender, EventArgs e)
+        private void textBox11_TextChanged(object sender, EventArgs e)
         {
             Action<float, bool> temp = (a, b) =>
             {
@@ -372,19 +388,29 @@ namespace StockTest
                     ((TextBox)sender).Text = a.ToString("##0.0");
                 }
             };
-            main.CallValueWindowFloat("고매수", temp);
+            main.CallValueWindowFloat("매도 호가당개수", temp);
         }
 
-        private void textBox7_TextChanged(object sender, EventArgs e)
+        private void textBox12_TextChanged(object sender, EventArgs e)
         {
             Action<float, bool> temp = (a, b) =>
             {
                 if (b)
                 {
-                    ((TextBox)sender).Text = a.ToString("##0.00");
+                    ((TextBox)sender).Text = a.ToString("##0.0");
                 }
             };
-            main.CallValueWindowFloat("변동", temp);
+            main.CallValueWindowFloat("매수 호가당개수", temp);
+        }
+
+        private void textBox8_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox7_TextChanged(object sender, EventArgs e)
+        {
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -420,9 +446,13 @@ namespace StockTest
                     stockChecker.sell_start = float.Parse(textBox1.Text);
                     stockChecker.sell_end = float.Parse(textBox2.Text);
                     stockChecker.sell_per = float.Parse(textBox3.Text);
+                    stockChecker.sell_per_count = float.Parse(textBox11.Text);
+                    stockChecker.use_count_for_sell = checkBox3.Checked;
                     stockChecker.buy_start = float.Parse(textBox6.Text);
                     stockChecker.buy_end = float.Parse(textBox5.Text);
                     stockChecker.buy_per = float.Parse(textBox4.Text);
+                    stockChecker.buy_per_count = float.Parse(textBox12.Text);
+                    stockChecker.use_count_for_buy = checkBox4.Checked;
                     stockChecker.highbuy_start = float.Parse(textBox9.Text);
                     stockChecker.highbuy_end = float.Parse(textBox8.Text);
                     stockChecker.highbuy_per = float.Parse(textBox7.Text);
@@ -470,8 +500,12 @@ namespace StockTest
                 main.sell_end = float.Parse(textBox2.Text);
                 main.sell_per = float.Parse(textBox3.Text);
                 main.buy_start = float.Parse(textBox6.Text);
+                main.sell_per_count = float.Parse(textBox11.Text);
+                main.use_count_for_sell = checkBox3.Checked;
                 main.buy_end = float.Parse(textBox5.Text);
                 main.buy_per = float.Parse(textBox4.Text);
+                main.buy_per_count = float.Parse(textBox12.Text);
+                main.use_count_for_buy = checkBox4.Checked;
                 main.highbuy_start = float.Parse(textBox9.Text);
                 main.highbuy_end = float.Parse(textBox8.Text);
                 main.highbuy_per = float.Parse(textBox7.Text);

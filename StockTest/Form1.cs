@@ -1621,7 +1621,9 @@ namespace StockTest
                     int index = insert_tb_accnt_info(RealCode(axKHOpenAPI1.CommGetData(e.sTrCode, "", e.sRQName, 0, "종목코드").Trim()), axKHOpenAPI1.CommGetData(e.sTrCode, "", e.sRQName, 0, "종목명").Trim(), g_accnt_no, 0, 0, Math.Abs(int.Parse(axKHOpenAPI1.CommGetData(e.sTrCode, "", e.sRQName, 0, "현재가").Trim())));
                     if (index >= 0)
                     {
-                        stockCheckers[index].limitprice = (int)(int.Parse(axKHOpenAPI1.CommGetData(e.sTrCode, "", e.sRQName, 0, "전일종가").Trim()) * 1.3f);
+                        int lastpri = int.Parse(axKHOpenAPI1.CommGetData(e.sTrCode, "", e.sRQName, 0, "전일종가").Trim());
+                        stockCheckers[index].lastpri = lastpri;
+                        stockCheckers[index].limitprice = (int)(lastpri * 1.3f);
                         stockCheckers[index].check = false;
                     }
                 }
@@ -1671,10 +1673,10 @@ namespace StockTest
                         now_price = int.Parse(axKHOpenAPI1.CommGetData(e.sTrCode, "", e.sRQName, ii, "현재가").Trim());
                         jongmok_nm = axKHOpenAPI1.CommGetData(e.sTrCode, "", e.sRQName, ii, "종목명").Trim();
 
-                        own_stock_cnt = (int)int.Parse(axKHOpenAPI1.CommGetData(e.sTrCode, "", e.sRQName, ii, "보유수량").Trim());
-                        buy_price = (int)int.Parse(axKHOpenAPI1.CommGetData(e.sTrCode, "", e.sRQName, ii, "평균단가").Trim());
-                        own_amt = (int)int.Parse(axKHOpenAPI1.CommGetData(e.sTrCode, "", e.sRQName, ii, "매입금액").Trim());
-                        lastpri = (int)int.Parse(axKHOpenAPI1.GetMasterLastPrice(jongmok_cd));
+                        own_stock_cnt = int.Parse(axKHOpenAPI1.CommGetData(e.sTrCode, "", e.sRQName, ii, "보유수량").Trim());
+                        buy_price = int.Parse(axKHOpenAPI1.CommGetData(e.sTrCode, "", e.sRQName, ii, "평균단가").Trim());
+                        own_amt = int.Parse(axKHOpenAPI1.CommGetData(e.sTrCode, "", e.sRQName, ii, "매입금액").Trim());
+                        lastpri = int.Parse(axKHOpenAPI1.GetMasterLastPrice(jongmok_cd));
                     }
                     catch (Exception)
                     {
@@ -1686,9 +1688,6 @@ namespace StockTest
                         //Send_Log("<평균단가 : " + axKHOpenAPI1.CommGetData(e.sTrCode, "", e.sRQName, ii, "평균단가").Trim() + ">");
                         //Send_Log("<매입금액 : " + axKHOpenAPI1.CommGetData(e.sTrCode, "", e.sRQName, ii, "매입금액").Trim() + ">");
                     }
-                    //Send_Log("종목코드 : " + jongmok_cd + "\n");
-                    //Send_Log("종목명 : " + jongmok_nm + "\n");
-                    //Send_Log("보유주식수 : " + own_stock_cnt.ToString() + "\n");
                     if (own_stock_cnt == 0) // 보유주식수가 0이라면 저장하지 않음
                     {
                         continue;
@@ -1697,6 +1696,7 @@ namespace StockTest
 
                     if (index >= 0)
                     {
+                        stockCheckers[index].lastpri = lastpri;
                         stockCheckers[index].limitprice = (int)(lastpri * 1.3f);
                         stockCheckers[index].check = false;
                     }
@@ -2711,6 +2711,7 @@ namespace StockTest
         public bool cut_per = true;
         public float fluctuation;               //등락율
         public float benefit;                   //수익율
+        public int lastpri;                     //전일 종가
 
         public int low_price;                   //계산용 최저가
         public int high_price;                  //계산용 최고가
@@ -2825,6 +2826,10 @@ namespace StockTest
             if (isFixedMarkPrice == false)
             {
                 markPrice.price = price.price;
+            }
+            else
+            {
+                markPrice.price = lastpri;
             }
             if (targetisprice)
                 targetCount = (targetPrice / markPrice.price);

@@ -496,50 +496,54 @@ namespace StockTest
             {
                 try
                 {
-                    mesuSound = xmlData.Find("mesuSound").value;
-                    medoSound = xmlData.Find("medoSound").value;
-                    pyunSound = xmlData.Find("pyunSound").value;
-                    cutSound = xmlData.Find("cutSound").value;
-                    jumunerrorSound = xmlData.Find("jumunerrorSound").value;
-                    mesuSoundOn = bool.Parse(xmlData.Find("mesuSoundOn").value);
-                    medoSoundOn = bool.Parse(xmlData.Find("medoSoundOn").value);
-                    pyunSoundOn = bool.Parse(xmlData.Find("pyunSoundOn").value);
-                    cutSoundOn = bool.Parse(xmlData.Find("cutSoundOn").value);
-                    jumunerrorSoundOn = bool.Parse(xmlData.Find("jumunerrorSoundOn").value);
-                    mesuWinOn = bool.Parse(xmlData.Find("mesuWinOn").value);
-                    medoWinOn = bool.Parse(xmlData.Find("medoWinOn").value);
-                    pyunWinOn = bool.Parse(xmlData.Find("pyunWinOn").value);
-                    cutWinOn = bool.Parse(xmlData.Find("cutWinOn").value);
-                    jumunerrorWinOn = bool.Parse(xmlData.Find("jumunerrorWinOn").value);
-                    is_cut = bool.Parse(xmlData.Find("is_cut").value);
-                    cut_price = float.Parse(xmlData.Find("cut_price").value);
-                    cut_count = int.Parse(xmlData.Find("cut_count").value);
-                    is_sell = bool.Parse(xmlData.Find("is_sell").value);
-                    is_buy = bool.Parse(xmlData.Find("is_buy").value);
-                    is_highmedo = bool.Parse(xmlData.Find("is_highmedo").value);
-                    is_highmedo_per = bool.Parse(xmlData.Find("is_highmedo_per").value);
-                    highMedo_price = int.Parse(xmlData.Find("highMedo_price").value);
-                    highMedo_perval = float.Parse(xmlData.Find("highMedo_perval").value);
-                    end_clear = bool.Parse(xmlData.Find("end_clear").value);
-                    is_endLimit = bool.Parse(xmlData.Find("is_endLimit").value);
-                    haveEffect = bool.Parse(xmlData.Find("haveEffect").value);
-                    is_rebuy = bool.Parse(xmlData.Find("is_rebuy").value);
-                    is_selltime = bool.Parse(xmlData.Find("is_selltime").value);
-                    is_buytime = bool.Parse(xmlData.Find("is_buytime").value);
-                    autoRestart = bool.Parse(xmlData.Find("autoRestart").value);
-                    saveLog = bool.Parse(xmlData.Find("saveLog").value);
+                    SetValue("mesuSound", v => mesuSound = v, s => s);
+                    SetValue("medoSound", v => medoSound = v, s => s);
+                    SetValue("pyunSound", v => pyunSound = v, s => s);
+                    SetValue("cutSound", v => cutSound = v, s => s);
+                    SetValue("jumunerrorSound", v => jumunerrorSound = v, s => s);
+                    SetValue("mesuSoundOn", v => mesuSoundOn = v, bool.Parse);
+                    SetValue("medoSoundOn", v => medoSoundOn = v, bool.Parse);
+                    SetValue("pyunSoundOn", v => pyunSoundOn = v, bool.Parse);
+                    SetValue("cutSoundOn", v => cutSoundOn = v, bool.Parse);
+                    SetValue("jumunerrorSoundOn", v => jumunerrorSoundOn = v, bool.Parse);
+                    SetValue("mesuWinOn", v => mesuWinOn = v, bool.Parse);
+                    SetValue("medoWinOn", v => medoWinOn = v, bool.Parse);
+                    SetValue("pyunWinOn", v => pyunWinOn = v, bool.Parse);
+                    SetValue("cutWinOn", v => cutWinOn = v, bool.Parse);
+                    SetValue("jumunerrorWinOn", v => jumunerrorWinOn = v, bool.Parse);
+                    SetValue("is_cut", v => is_cut = v, bool.Parse);
+                    SetValue("cut_price", v => cut_price = v, float.Parse);
+                    SetValue("cut_count", v => cut_count = v, int.Parse);
+                    SetValue("is_sell", v => is_sell = v, bool.Parse);
+                    SetValue("is_buy", v => is_buy = v, bool.Parse);
+                    SetValue("is_highmedo", v => is_highmedo = v, bool.Parse);
+                    SetValue("is_highmedo_per", v => is_highmedo_per = v, bool.Parse);
+                    SetValue("highMedo_price", v => highMedo_price = v, int.Parse);
+                    SetValue("highMedo_perval", v => highMedo_perval = v, float.Parse);
+                    SetValue("end_clear", v => end_clear = v, bool.Parse);
+                    SetValue("is_endLimit", v => is_endLimit = v, bool.Parse);
+                    SetValue("haveEffect", v => haveEffect = v, bool.Parse);
+                    SetValue("is_rebuy", v => is_rebuy = v, bool.Parse);
+                    SetValue("is_selltime", v => is_selltime = v, bool.Parse);
+                    SetValue("is_buytime", v => is_buytime = v, bool.Parse);
+                    SetValue("autoRestart", v => autoRestart = v, bool.Parse);
+                    SetValue("saveLog", v => saveLog = v, bool.Parse);
+                    SetValue("sell_start", v => sell_start = v, float.Parse);
+                    SetValue("sell_end", v => sell_end = v, float.Parse);
+                    SetValue("sell_per", v => sell_per = v, float.Parse);
+                    SetValue("buy_start", v => buy_start = v, float.Parse);
+                    SetValue("buy_end", v => buy_end = v, float.Parse);
+                    SetValue("buy_per", v => buy_per = v, float.Parse);
+                    SetValue("buy_per_count", v => buy_per_count = v, float.Parse);
+                    SetValue("use_count_for_buy", v => use_count_for_buy = v, bool.Parse);
+                    SetValue("sell_per_count", v => sell_per_count = v, float.Parse);
+                    SetValue("use_count_for_sell", v => use_count_for_sell = v, bool.Parse);
+                    SetValue("highbuy_start", v => highbuy_start = v, float.Parse);
+                    SetValue("highbuy_end", v => highbuy_end = v, float.Parse);
+                    SetValue("highbuy_per", v => highbuy_per = v, float.Parse);
+                    SetValue("allPlaySound", v => allPlaySound = v, bool.Parse);
+                    SetValue("is_price_change_sound", v => is_price_change_sound = v, bool.Parse);
 
-                    sell_start = float.Parse(xmlData.Find("sell_start").value);
-                    sell_end = float.Parse(xmlData.Find("sell_end").value);
-                    sell_per = float.Parse(xmlData.Find("sell_per").value);
-                    buy_start = float.Parse(xmlData.Find("buy_start").value);
-                    buy_end = float.Parse(xmlData.Find("buy_end").value);
-                    buy_per = float.Parse(xmlData.Find("buy_per").value);
-                    highbuy_start = float.Parse(xmlData.Find("highbuy_start").value);
-                    highbuy_end = float.Parse(xmlData.Find("highbuy_end").value);
-                    highbuy_per = float.Parse(xmlData.Find("highbuy_per").value);
-                    allPlaySound = bool.Parse(xmlData.Find("allPlaySound").value);
-                    is_price_change_sound = bool.Parse(xmlData.Find("is_price_change_sound").value);
                     if (allPlaySound)
                     {
                         AllStartSound();
@@ -549,32 +553,34 @@ namespace StockTest
                         AllStopSound();
                     }
 
-                    for (int ii = 0; ii < buy_conditions.Length; ii++)
+                    for (int i = 0; i < buy_conditions.Length; i++)
                     {
-                        buy_conditions[ii] = int.Parse(xmlData.Find("buy_conditions" + ii).value.Trim());
+                        int index = i;
+                        SetValue("buy_conditions" + index, v => buy_conditions[index] = v, s => int.Parse(s.Trim()));
                     }
                     for (int i = 0; i < sell_conditions.Length; i++)
                     {
-                        sell_conditions[i] = int.Parse(xmlData.Find("sell_conditions" + i).value.Trim());
+                        int index = i;
+                        SetValue("sell_conditions" + index, v => sell_conditions[index] = v, s => int.Parse(s.Trim()));
                     }
 
-                    targetPrice = int.Parse(xmlData.Find("targetPrice").value);
-
-                    play = bool.Parse(xmlData.Find("play").value);
+                    SetValue("targetPrice", v => targetPrice = v, int.Parse);
+                    SetValue("play", v => play = v, bool.Parse);
 
                     for (int i = 0; i < enabled_accno_arr.Length; i++)
-                        enabled_accno_arr[i] = bool.Parse(xmlData.Find("enabled_accno_arr" + l_accno_arr[i]).value);
+                    {
+                        int index = i;
+                        SetValue("enabled_accno_arr" + l_accno_arr[index], v => enabled_accno_arr[index] = v, bool.Parse);
+                    }
 
-                    remainCountVal = int.Parse(xmlData.Find("remainCountVal").value);
+                    SetValue("remainCountVal", v => remainCountVal = v, int.Parse);
                 }
                 catch (Exception e)
                 {
-
                     Send_Log("XML: " + e.Message + e.StackTrace);
                 }
             }
-            if (xmlData.Find("AutoStart") != null)
-                nowAuto = bool.Parse(xmlData.Find("AutoStart").value);
+            SetValue("AutoStart", v => nowAuto = v, bool.Parse);
 
             try
             {
@@ -649,7 +655,21 @@ namespace StockTest
             Send_Log("사용할 증권계좌번호는 : [" + enabledAccountNumbersString + "] 입니다. \n");
 
         }
-
+        private void SetValue<T>(string key, Action<T> setter, Func<string, T> parser)
+        {
+            var data = xmlData.Find(key);
+            if (data != null && !string.IsNullOrEmpty(data.value))
+            {
+                try
+                {
+                    setter(parser(data.value));
+                }
+                catch (Exception e)
+                {
+                    Send_Log($"XML({key}) 데이터 파싱 오류: {e.Message}");
+                }
+            }
+        }
 
         public async void Timer()
         {
@@ -1222,57 +1242,60 @@ namespace StockTest
 
                     try
                     {
-                        newStockChecker.targetPrice = int.Parse(xmlData.Find(keyString + ".targetPrice").value.Trim());
+                        SetValue(keyString + ".targetPrice", v => newStockChecker.targetPrice = v, s => int.Parse(s.Trim()));
                         if (newStockChecker.targetPrice != 0)
                             ((Label)newStockChecker.pan.Controls["targetprice_text"]).Text = "목표가: " + string.Format("{0:#,###}", newStockChecker.targetPrice / 10000) + "만원";
                         else
                             ((Label)newStockChecker.pan.Controls["targetprice_text"]).Text = "목표가: 0원";
 
                         for (int i = 0; i < newStockChecker.sell_conditions.Length; i++)
-                            newStockChecker.sell_conditions[i] = int.Parse(xmlData.Find(keyString + ".sell_conditions" + i).value.Trim());
+                        {
+                            SetValue(keyString + ".sell_conditions" + i, v => newStockChecker.sell_conditions[i] = v, s => int.Parse(s.Trim()));
+                        }
                         for (int i = 0; i < newStockChecker.buy_conditions.Length; i++)
-                            newStockChecker.buy_conditions[i] = int.Parse(xmlData.Find(keyString + ".buy_conditions" + i).value.Trim());
+                        {
+                            SetValue(keyString + ".buy_conditions" + i, v => newStockChecker.buy_conditions[i] = v, s => int.Parse(s.Trim()));
+                        }
 
-                        newStockChecker.is_cut = bool.Parse(xmlData.Find(keyString + ".is_cut").value.Trim());
-                        newStockChecker.cut_price = float.Parse(xmlData.Find(keyString + ".cut_price").value.Trim());
-                        if (newStockChecker.cut_price > 100) newStockChecker.cut_per = false;
-                        newStockChecker.is_sell = bool.Parse(xmlData.Find(keyString + ".is_sell").value.Trim());
-                        newStockChecker.is_buy = bool.Parse(xmlData.Find(keyString + ".is_buy").value.Trim());
-                        newStockChecker.end_clear = bool.Parse(xmlData.Find(keyString + ".end_clear").value.Trim());
-                        newStockChecker.is_playing = bool.Parse(xmlData.Find(keyString + ".is_playing").value.Trim());
-                        newStockChecker.is_highmedo = bool.Parse(xmlData.Find(keyString + ".is_highmedo").value.Trim());
-                        newStockChecker.is_highmedo_per = bool.Parse(xmlData.Find(keyString + ".is_highmedo_per").value.Trim());
-                        newStockChecker.highMedo_per = int.Parse(xmlData.Find(keyString + ".highMedo_per").value.Trim());
-                        newStockChecker.highMedo_price = int.Parse(xmlData.Find(keyString + ".highMedo_price").value.Trim());
-                        newStockChecker.haveEffect = bool.Parse(xmlData.Find(keyString + ".haveEffect").value.Trim());
-                        newStockChecker.highMedo_perval = int.Parse(xmlData.Find(keyString + ".highMedo_perval").value.Trim());
-                        newStockChecker.is_endLimit = bool.Parse(xmlData.Find(keyString + ".is_endLimit").value.Trim());
-                        newStockChecker.remainCountVal = int.Parse(xmlData.Find(keyString + ".remainCountVal").value.Trim());
-                        newStockChecker.sell_start = float.Parse(xmlData.Find(keyString + ".sell_start").value.Trim());
-                        newStockChecker.sell_end = int.Parse(xmlData.Find(keyString + ".sell_end").value.Trim());
-                        newStockChecker.sell_per = float.Parse(xmlData.Find(keyString + ".sell_per").value.Trim());
-                        newStockChecker.sell_per_count = int.Parse(xmlData.Find(keyString + ".sell_per_count").value.Trim());
-                        newStockChecker.use_count_for_sell = bool.Parse(xmlData.Find(keyString + ".use_count_for_sell").value.Trim());
-                        newStockChecker.buy_start = float.Parse(xmlData.Find(keyString + ".buy_start").value.Trim());
-                        newStockChecker.buy_end = int.Parse(xmlData.Find(keyString + ".buy_end").value.Trim());
-                        newStockChecker.buy_per = float.Parse(xmlData.Find(keyString + ".buy_per").value.Trim());
-                        newStockChecker.buy_per_count = int.Parse(xmlData.Find(keyString + ".buy_per_count").value.Trim());
-                        newStockChecker.use_count_for_buy = bool.Parse(xmlData.Find(keyString + ".use_count_for_buy").value.Trim());
-                        newStockChecker.highbuy_start = float.Parse(xmlData.Find(keyString + ".highbuy_start").value.Trim());
-                        newStockChecker.highbuy_end = float.Parse(xmlData.Find(keyString + ".highbuy_end").value.Trim());
-                        newStockChecker.highbuy_per = float.Parse(xmlData.Find(keyString + ".highbuy_per").value.Trim());
-                        newStockChecker.is_price_change_sound = bool.Parse(xmlData.Find(keyString + ".is_price_change_sound").value.Trim());
-                        newStockChecker.targetCount = int.Parse(xmlData.Find(keyString + ".targetCount").value.Trim());
-                        newStockChecker.targetisprice = bool.Parse(xmlData.Find(keyString + ".targetisprice").value.Trim());
-                        newStockChecker.isFixedMarkPrice = bool.Parse(xmlData.Find(keyString + ".isFixedMarkPrice").value.Trim());
+                        SetValue(keyString + ".is_cut", v => newStockChecker.is_cut = v, s => bool.Parse(s.Trim()));
+                        SetValue(keyString + ".cut_price", v =>
+                        {
+                            newStockChecker.cut_price = float.Parse(v.Trim());
+                            if (newStockChecker.cut_price > 100) newStockChecker.cut_per = false;
+                        }, s => s);
+                        SetValue(keyString + ".is_sell", v => newStockChecker.is_sell = v, s => bool.Parse(s.Trim()));
+                        SetValue(keyString + ".is_buy", v => newStockChecker.is_buy = v, s => bool.Parse(s.Trim()));
+                        SetValue(keyString + ".end_clear", v => newStockChecker.end_clear = v, s => bool.Parse(s.Trim()));
+                        SetValue(keyString + ".is_playing", v => newStockChecker.is_playing = v, s => bool.Parse(s.Trim()));
+                        SetValue(keyString + ".is_highmedo", v => newStockChecker.is_highmedo = v, s => bool.Parse(s.Trim()));
+                        SetValue(keyString + ".is_highmedo_per", v => newStockChecker.is_highmedo_per = v, s => bool.Parse(s.Trim()));
+                        SetValue(keyString + ".highMedo_per", v => newStockChecker.highMedo_per = v, s => int.Parse(s.Trim()));
+                        SetValue(keyString + ".highMedo_price", v => newStockChecker.highMedo_price = v, s => int.Parse(s.Trim()));
+                        SetValue(keyString + ".haveEffect", v => newStockChecker.haveEffect = v, s => bool.Parse(s.Trim()));
+                        SetValue(keyString + ".highMedo_perval", v => newStockChecker.highMedo_perval = v, s => float.Parse(s.Trim()));
+                        SetValue(keyString + ".is_endLimit", v => newStockChecker.is_endLimit = v, s => bool.Parse(s.Trim()));
+                        SetValue(keyString + ".remainCountVal", v => newStockChecker.remainCountVal = v, s => int.Parse(s.Trim()));
+                        SetValue(keyString + ".sell_start", v => newStockChecker.sell_start = v, s => float.Parse(s.Trim()));
+                        SetValue(keyString + ".sell_end", v => newStockChecker.sell_end = v, s => float.Parse(s.Trim()));
+                        SetValue(keyString + ".sell_per", v => newStockChecker.sell_per = v, s => float.Parse(s.Trim()));
+                        SetValue(keyString + ".sell_per_count", v => newStockChecker.sell_per_count = v, s => float.Parse(s.Trim()));
+                        SetValue(keyString + ".use_count_for_sell", v => newStockChecker.use_count_for_sell = v, s => bool.Parse(s.Trim()));
+                        SetValue(keyString + ".buy_start", v => newStockChecker.buy_start = v, s => float.Parse(s.Trim()));
+                        SetValue(keyString + ".buy_end", v => newStockChecker.buy_end = v, s => float.Parse(s.Trim()));
+                        SetValue(keyString + ".buy_per", v => newStockChecker.buy_per = v, s => float.Parse(s.Trim()));
+                        SetValue(keyString + ".buy_per_count", v => newStockChecker.buy_per_count = v, s => float.Parse(s.Trim()));
+                        SetValue(keyString + ".use_count_for_buy", v => newStockChecker.use_count_for_buy = v, s => bool.Parse(s.Trim()));
+                        SetValue(keyString + ".highbuy_start", v => newStockChecker.highbuy_start = v, s => float.Parse(s.Trim()));
+                        SetValue(keyString + ".highbuy_end", v => newStockChecker.highbuy_end = v, s => float.Parse(s.Trim()));
+                        SetValue(keyString + ".highbuy_per", v => newStockChecker.highbuy_per = v, s => float.Parse(s.Trim()));
+                        SetValue(keyString + ".is_price_change_sound", v => newStockChecker.is_price_change_sound = v, s => bool.Parse(s.Trim()));
+                        SetValue(keyString + ".targetCount", v => newStockChecker.targetCount = v, s => int.Parse(s.Trim()));
+                        SetValue(keyString + ".targetisprice", v => newStockChecker.targetisprice = v, s => bool.Parse(s.Trim()));
+                        SetValue(keyString + ".isFixedMarkPrice", v => newStockChecker.isFixedMarkPrice = v, s => bool.Parse(s.Trim()));
                         if (newStockChecker.isFixedMarkPrice)
                         {
-                            newStockChecker.markPrice.price = int.Parse(xmlData.Find(keyString + ".markPrice").value.Trim());
+                            SetValue(keyString + ".markPrice", v => newStockChecker.markPrice.price = v, s => int.Parse(s.Trim()));
                         }
-                        //newStockChecker.is_repeat = bool.Parse(xmlData.Find(i_jongmok_nm + ".is_repeat").value.Trim());
-                        //newStockChecker.low_price = int.Parse(xmlData.Find(i_jongmok_nm + ".low_price").value.Trim());
-                        //newStockChecker.high_price = int.Parse(xmlData.Find(i_jongmok_nm + ".high_price").value.Trim());
-                        //newStockChecker.state = (StockChecker.StockState)int.Parse(xmlData.Find(i_jongmok_nm + ".state").value.Trim());
                     }
                     catch (Exception e)
                     {

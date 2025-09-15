@@ -2827,10 +2827,6 @@ namespace StockTest
             {
                 markPrice.price = price.price;
             }
-            else
-            {
-                markPrice.price = lastpri;
-            }
             if (targetisprice)
                 targetCount = (targetPrice / markPrice.price);
             else
@@ -3081,7 +3077,9 @@ namespace StockTest
         {
             main.Send_Log(accnt_no + " " + name + " 목록제거");
             is_playing = false;
+            isFixedMarkPrice = false;
             main.xmlData.SetData("C" + code + accnt_no + ".is_playing", is_playing.ToString());
+            main.xmlData.SetData("C" + code + accnt_no + ".isFixedMarkPrice", isFixedMarkPrice.ToString());
             main.stockCheckers.Remove(this);
             pan.Dispose();
             for (int i = 0; i < main.stockCheckers.Count; i++)
